@@ -14,4 +14,4 @@ before_install:
 install:
   - yarn --frozen-lockfile --non-interactive
 
-script: node scripts/deploy-and-alias.js next.vuetifyjs.com
+script: yarn vue-cli-service lint --no-fix
