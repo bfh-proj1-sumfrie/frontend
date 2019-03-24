@@ -1,5 +1,7 @@
 # frontend
 
+[![Build Status](https://travis-ci.org/bfh-proj1-sumfrie/frontend.svg?branch=master)](https://travis-ci.org/bfh-proj1-sumfrie/frontend)
+
 ## Project setup
 ```
 yarn install
