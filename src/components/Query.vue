@@ -12,10 +12,11 @@
           label="SQL Query"
           v-model="sqlQuery"
           hint="SQL Query"
-          value="SELECT * FROM block limit 10"
+          value='SELECT * FROM block limit 10'
           auto-grow
         ></v-textarea>
         <v-btn round color="primary" dark v-on:click="runSql()">Run</v-btn>
+        <v-btn round color="primary" dark v-on:click="saveQuery()">Save</v-btn>
         <div v-if="sqlQuerySuccess !== ''">
           <h3>Last query: {{ sqlQuerySuccess }}</h3>
           <v-flex xs12>
@@ -35,7 +36,7 @@
                   Sorry, nothing to display here :(
                 </v-alert>
               </template>
-              <template slot="items" slot-scope="myprops">
+              <template slot="queryExample" slot-scope="myprops">
                 <td v-for="header in headers" v-bind:key="header.id">
                   {{ myprops.item[header.value] }}
                 </td>
@@ -43,6 +44,13 @@
             </v-data-table>
           </v-flex>
         </div>
+        <v-flex xs12 sm6 d-flex>
+          <v-select
+                  :items="queryExample"
+                  label="Solo field"
+                  solo
+          ></v-select>
+        </v-flex>
       </v-flex>
     </v-layout>
   </v-container>
@@ -50,13 +58,16 @@
 
 <script>
 import BackendService from "../services/backend-service";
+import FileService from "../services/file-service";
+import exampleQueryService from "../services/example-query-service"
 export default {
   data: () => ({
     result: [],
     headers: [],
     sqlQuery: "",
     sqlQuerySuccess: "",
-    error: ""
+    error: "",
+    queryExample: exampleQueryService.getExample()
   }),
   methods: {
     async runSql() {
@@ -74,6 +85,10 @@ export default {
         this.headers.push({ text: k, value: k });
       }
       this.sqlQuerySuccess = this.sqlQuery;
+    },
+
+    async saveQuery() {
+      FileService.savefile(this.sqlQuery);
     }
   }
 };
