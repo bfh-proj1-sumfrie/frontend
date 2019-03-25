@@ -1,9 +1,15 @@
 import axios from "axios";
 
 export default class BackendService {
-  static BACKEND_URL: string = "TO BE DEFINED";
+  static BACKEND_URL: string = "https://bfh-proj1-backend.herokuapp.com/query";
 
-  static runSql(query: string) {
-    return BackendService.BACKEND_URL;
+  /**
+   *
+   * @param query
+   */
+  static async runSql(query: string) {
+    return await axios.post(BackendService.BACKEND_URL, {
+      sql: query
+    });
   }
 }
