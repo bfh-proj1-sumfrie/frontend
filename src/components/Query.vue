@@ -47,8 +47,10 @@
 import BackendService from "../services/backend-service";
 import FileService from "../services/file-service";
 import exampleQueryService from "../services/example-query-service";
+import codemirror from "vue-codemirror/src/codemirror.vue";
 
 export default {
+  components:{codemirror},
   data: () => ({
     result: [],
     headers: [],
