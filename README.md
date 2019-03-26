@@ -7,6 +7,11 @@
 yarn install
 ```
 
+Define the following env variables: 
+
+`API_URL` the url where your api is hosted (without slash at the ebd).
+
+
 ### Compiles and hot-reloads for development
 ```
 yarn run serve
