@@ -7,15 +7,11 @@ import "./registerServiceWorker";
 const VueCodemirror = require("vue-codemirror");
 import "codemirror/lib/codemirror.css";
 import "codemirror/theme/darcula.css";
-
-// require more codemirror resource...
+import 'codemirror/mode/sql/sql.js'
 
 // you can set default global options and events when use
 Vue.use(
-  VueCodemirror /* {
-  options: { theme: 'base16-dark', ... },
-  events: ['scroll', ...]
-} */
+  VueCodemirror
 );
 
 Vue.config.productionTip = false;

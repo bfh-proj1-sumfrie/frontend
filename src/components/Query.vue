@@ -7,7 +7,7 @@
     </div>
     <v-layout text-xs-center wrap>
       <v-flex xs12>
-        <codemirror v-model="code" :options="cmOptions" @input="onCmCodeChange">
+        <codemirror v-model="sqlQuery" :options="cmOptions" @input="onCmCodeChange">
         </codemirror>
         <v-btn round color="primary" dark v-on:click="runSql()">Run</v-btn>
         <v-btn round color="primary" dark v-on:click="saveQuery()">Save</v-btn>
@@ -38,9 +38,6 @@
             </v-data-table>
           </v-flex>
         </div>
-        <v-flex xs12 sm6 d-flex>
-          <v-select :items="queryExample" label="Solo field" solo></v-select>
-        </v-flex>
       </v-flex>
     </v-layout>
   </v-container>
@@ -55,19 +52,16 @@ export default {
   data: () => ({
     result: [],
     headers: [],
-    sqlQuery: "",
+    sqlQuery: "select * from block;",
     sqlQuerySuccess: "",
     error: "",
     queryExample: exampleQueryService.getExample(),
-    code: "const a = 10",
     cmOptions: {
       // codemirror options
       tabSize: 4,
       mode: "text/x-mariadb",
       theme: "darcula",
       lineNumbers: true,
-      line: true,
-      direction: "ltr"
     }
   }),
   methods: {
@@ -80,6 +74,7 @@ export default {
         return;
       }
       this.result = rawResult.data;
+
       this.error = "";
       this.headers = [];
       for (let k in this.result[0]) {
@@ -92,11 +87,12 @@ export default {
       FileService.savefile(this.sqlQuery);
     },
     onCmCodeChange(newCode) {
-      console.log("this is new code", newCode);
-      this.code = newCode;
+      this.sqlQuery = newCode;
     }
   }
 };
 </script>
 
-<style></style>
+<style>
+  .CodeMirror { text-align: left; }
+</style>
