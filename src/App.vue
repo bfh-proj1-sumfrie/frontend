@@ -16,18 +16,18 @@
     </v-toolbar>
 
     <v-content>
-      <HelloWorld />
+      <QueryComponent />
     </v-content>
   </v-app>
 </template>
 
 <script>
-import HelloWorld from "./components/Query";
+import QueryComponent from "./components/Query";
 
 export default {
   name: "App",
   components: {
-    HelloWorld
+    QueryComponent
   },
   data() {
     return {
