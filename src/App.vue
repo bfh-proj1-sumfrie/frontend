@@ -2,16 +2,16 @@
   <v-app dark>
     <v-toolbar app>
       <v-toolbar-title class="headline text-uppercase">
-        <span>Vuetify</span>
-        <span class="font-weight-light">MATERIAL DESIGN</span>
+        <span class="logofont">BLO</span>
+        <span class="font-weight-light logofont">SQL</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn
         flat
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
+        href="https://github.com/bfh-proj1-sumfrie"
         target="_blank"
       >
-        <span class="mr-2">Latest Release</span>
+        <span class="mr-2">Github</span>
       </v-btn>
     </v-toolbar>
 
@@ -36,3 +36,15 @@ export default {
   }
 };
 </script>
+
+<style>
+@import url("https://fonts.googleapis.com/css?family=Righteous");
+
+.logofont {
+  font-family: 'Righteous', cursive;
+  font-size: 2.5rem;
+}
+.theme--dark.application {
+  background: #777777;
+}
+</style>

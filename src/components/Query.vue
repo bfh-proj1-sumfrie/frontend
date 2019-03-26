@@ -15,6 +15,7 @@
           @ready="onCmReady"
         >
         </codemirror>
+        <br>
         <v-btn round color="primary" dark v-on:click="runSql()">Run</v-btn>
         <v-btn round color="primary" dark v-on:click="saveQuery()">Save</v-btn>
         <div v-if="sqlQuerySuccess !== ''">
