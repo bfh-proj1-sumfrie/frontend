@@ -7,7 +7,13 @@
     </div>
     <v-layout text-xs-center wrap>
       <v-flex xs12>
-        <codemirror v-model="sqlQuery" :options="cmOptions" @input="onCmCodeChange">
+        <codemirror
+          v-
+          v-model="sqlQuery"
+          :options="cmOptions"
+          @input="onCmCodeChange"
+          @ready="onCmReady"
+        >
         </codemirror>
         <v-btn round color="primary" dark v-on:click="runSql()">Run</v-btn>
         <v-btn round color="primary" dark v-on:click="saveQuery()">Save</v-btn>
@@ -48,6 +54,14 @@ import BackendService from "../services/backend-service";
 import FileService from "../services/file-service";
 import exampleQueryService from "../services/example-query-service";
 
+import "codemirror/addon/hint/show-hint.css";
+import "codemirror/mode/sql/sql";
+import "codemirror/addon/hint/show-hint";
+import "codemirror/addon/search/searchcursor";
+import "codemirror/addon/search/search";
+import "codemirror/addon/display/placeholder";
+import "codemirror/addon/hint/sql-hint";
+import "codemirror/addon/hint/anyword-hint";
 export default {
   data: () => ({
     result: [],
@@ -62,6 +76,9 @@ export default {
       mode: "text/x-mariadb",
       theme: "darcula",
       lineNumbers: true,
+      CodeMirror: {
+        "font-size": "20px"
+      }
     }
   }),
   methods: {
@@ -88,11 +105,57 @@ export default {
     },
     onCmCodeChange(newCode) {
       this.sqlQuery = newCode;
+    },
+    onCmReady(cm) {
+      cm.on("keypress", () => {
+        cm.showHint({ completeSingle: false });
+      });
     }
   }
 };
 </script>
 
 <style>
-  .CodeMirror { text-align: left; }
+.CodeMirror {
+  text-align: left;
+  font-size: 1.8rem;
+}
+
+.CodeMirror-hints {
+  position: absolute;
+  z-index: 10;
+  overflow: hidden;
+  list-style: none;
+
+  margin: 0;
+  padding: 2px;
+
+  -webkit-box-shadow: 2px 3px 5px rgba(0,0,0,.2);
+  -moz-box-shadow: 2px 3px 5px rgba(0,0,0,.2);
+  box-shadow: 2px 3px 5px rgba(0,0,0,.2);
+  border-radius: 3px;
+  border: 1px solid silver;
+
+  background: white;
+  font-size: 90%;
+  font-family: monospace;
+
+  max-height: 20em;
+  overflow-y: auto;
+}
+
+.CodeMirror-hint {
+  margin: 0;
+  padding: 0 4px;
+  border-radius: 2px;
+  white-space: pre;
+  color: #CC7832;
+  font-size: 1.4em;
+  cursor: pointer;
+}
+
+.CodeMirror-hint-active {
+  background: #08f;
+  color: white;
+}
 </style>
