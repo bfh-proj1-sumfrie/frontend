@@ -1,33 +1,29 @@
 <template>
-  <v-app>
+  <v-app dark>
     <v-toolbar app>
       <v-toolbar-title class="headline text-uppercase">
-        <span>Vuetify</span>
-        <span class="font-weight-light">MATERIAL DESIGN</span>
+        <span class="logofont">BLO</span>
+        <span class="font-weight-light logofont">SQL</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn
-        flat
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-      >
-        <span class="mr-2">Latest Release</span>
+      <v-btn flat href="https://github.com/bfh-proj1-sumfrie" target="_blank">
+        <span class="mr-2">Github</span>
       </v-btn>
     </v-toolbar>
 
     <v-content>
-      <HelloWorld />
+      <QueryComponent />
     </v-content>
   </v-app>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld";
+import QueryComponent from "./components/Query";
 
 export default {
   name: "App",
   components: {
-    HelloWorld
+    QueryComponent
   },
   data() {
     return {
@@ -36,3 +32,15 @@ export default {
   }
 };
 </script>
+
+<style>
+@import url("https://fonts.googleapis.com/css?family=Righteous");
+
+.logofont {
+  font-family: "Righteous", cursive;
+  font-size: 2.5rem;
+}
+.theme--dark.application {
+  background: #777777;
+}
+</style>
