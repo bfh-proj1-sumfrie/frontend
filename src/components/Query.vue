@@ -7,14 +7,11 @@
     </div>
     <v-layout text-xs-center wrap>
       <v-flex xs12>
-        <v-textarea
-          name="input"
-          label="SQL Query"
-          v-model="sqlQuery"
-          hint="SQL Query"
-          value='SELECT * FROM block limit 10'
-          auto-grow
-        ></v-textarea>
+        <codemirror
+                v-model="code"
+                :options="cmOptions"
+                @input="onCmCodeChange">
+        </codemirror>
         <v-btn round color="primary" dark v-on:click="runSql()">Run</v-btn>
         <v-btn round color="primary" dark v-on:click="saveQuery()">Save</v-btn>
         <div v-if="sqlQuerySuccess !== ''">
@@ -59,7 +56,8 @@
 <script>
 import BackendService from "../services/backend-service";
 import FileService from "../services/file-service";
-import exampleQueryService from "../services/example-query-service"
+import exampleQueryService from "../services/example-query-service";
+
 export default {
   data: () => ({
     result: [],
@@ -67,7 +65,17 @@ export default {
     sqlQuery: "",
     sqlQuerySuccess: "",
     error: "",
-    queryExample: exampleQueryService.getExample()
+    queryExample: exampleQueryService.getExample(),
+    code: 'const a = 10',
+    cmOptions: {
+      // codemirror options
+      tabSize: 4,
+      mode: "text/x-sql",
+      theme: 'darcula',
+      lineNumbers: true,
+      line: true,
+      direction: 'ltr'
+    }
   }),
   methods: {
     async runSql() {
@@ -89,6 +97,10 @@ export default {
 
     async saveQuery() {
       FileService.savefile(this.sqlQuery);
+    },
+    onCmCodeChange(newCode) {
+      console.log('this is new code', newCode)
+      this.code = newCode
     }
   }
 };
