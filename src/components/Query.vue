@@ -30,7 +30,7 @@
                   Sorry, nothing to display here :(
                 </v-alert>
               </template>
-              <template slot="queryExample" slot-scope="myprops">
+              <template slot="items" slot-scope="myprops">
                 <td v-for="header in headers" v-bind:key="header.id">
                   {{ myprops.item[header.value] }}
                 </td>
