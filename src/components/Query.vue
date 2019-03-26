@@ -118,7 +118,7 @@ export default {
 <style>
 .CodeMirror {
   text-align: left;
-  font-size: 1.8rem;
+  font-size: 1.6rem;
 }
 
 .CodeMirror-hints {
