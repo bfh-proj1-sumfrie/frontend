@@ -7,17 +7,14 @@ import "./registerServiceWorker";
 const VueCodemirror = require("vue-codemirror");
 import "codemirror/lib/codemirror.css";
 import "codemirror/theme/darcula.css";
-import 'codemirror/mode/sql/sql.js'
+import "codemirror/mode/sql/sql.js";
 
-// you can set default global options and events when use
-Vue.use(
-  VueCodemirror
-);
+Vue.use(VueCodemirror);
 
 Vue.config.productionTip = false;
 
 new Vue({
   router,
   store,
-  render: h => h(App),
+  render: h => h(App)
 }).$mount("#app");
