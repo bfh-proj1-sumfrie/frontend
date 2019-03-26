@@ -6,7 +6,7 @@ import store from "./store";
 import "./registerServiceWorker";
 import "codemirror/lib/codemirror.css";
 import "codemirror/theme/darcula.css";
-import 'codemirror/mode/sql/sql.js'
+import "codemirror/mode/sql/sql.js";
 
 Vue.config.productionTip = false;
 

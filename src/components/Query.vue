@@ -7,7 +7,11 @@
     </div>
     <v-layout text-xs-center wrap>
       <v-flex xs12>
-        <codemirror v-model="sqlQuery" :options="cmOptions" @input="onCmCodeChange">
+        <codemirror
+          v-model="sqlQuery"
+          :options="cmOptions"
+          @input="onCmCodeChange"
+        >
         </codemirror>
         <v-btn round color="primary" dark v-on:click="runSql()">Run</v-btn>
         <v-btn round color="primary" dark v-on:click="saveQuery()">Save</v-btn>
@@ -50,7 +54,7 @@ import exampleQueryService from "../services/example-query-service";
 import codemirror from "vue-codemirror/src/codemirror.vue";
 
 export default {
-  components:{codemirror},
+  components: { codemirror },
   data: () => ({
     result: [],
     headers: [],
@@ -63,7 +67,7 @@ export default {
       tabSize: 4,
       mode: "text/x-mariadb",
       theme: "darcula",
-      lineNumbers: true,
+      lineNumbers: true
     }
   }),
   methods: {
@@ -96,5 +100,7 @@ export default {
 </script>
 
 <style>
-  .CodeMirror { text-align: left; }
+.CodeMirror {
+  text-align: left;
+}
 </style>
