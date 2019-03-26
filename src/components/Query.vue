@@ -14,6 +14,7 @@
           @ready="onCmReady"
         >
         </codemirror>
+        <br />
         <v-btn round color="primary" dark v-on:click="runSql()">Run</v-btn>
         <v-btn round color="primary" dark v-on:click="saveQuery()">Save</v-btn>
         <div v-if="sqlQuerySuccess !== ''">
@@ -131,9 +132,9 @@ export default {
   margin: 0;
   padding: 2px;
 
-  -webkit-box-shadow: 2px 3px 5px rgba(0,0,0,.2);
-  -moz-box-shadow: 2px 3px 5px rgba(0,0,0,.2);
-  box-shadow: 2px 3px 5px rgba(0,0,0,.2);
+  -webkit-box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.2);
+  box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.2);
   border-radius: 3px;
   border: 1px solid silver;
 
@@ -150,7 +151,7 @@ export default {
   padding: 0 4px;
   border-radius: 2px;
   white-space: pre;
-  color: #CC7832;
+  color: #cc7832;
   font-size: 1.4em;
   cursor: pointer;
 }
