@@ -184,4 +184,7 @@ export default {
 .lastQuery {
   text-align: left;
 }
+.CodeMirror-scroll {
+  z-index: 1;
+}
 </style>
