@@ -1,6 +1,6 @@
 # frontend
 
-[![Build Status](https://travis-ci.org/bfh-proj1-sumfrie/frontend.svg?branch=master)](https://travis-ci.org/bfh-proj1-sumfrie/frontend)
+[![Build Status](https://travis-ci.org/bfh-proj1-sumfrie/frontend.svg?branch=master)](https://travis-ci.org/bfh-proj1-sumfrie/frontend) [![Greenkeeper badge](https://badges.greenkeeper.io/bfh-proj1-sumfrie/frontend.svg)](https://greenkeeper.io/)
 
 ## Project setup
 ```
