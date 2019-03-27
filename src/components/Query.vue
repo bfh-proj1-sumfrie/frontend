@@ -8,7 +8,9 @@
     <v-layout text-xs-center wrap>
       <v-flex xs12>
         <v-flex class="text-xs-right" xs12>
-          <v-btn fab small color="primary" dark v-on:click="saveQuery()"><v-icon>fas fa-save</v-icon></v-btn>
+          <v-btn fab small color="primary" dark v-on:click="saveQuery()"
+            ><v-icon>fas fa-save</v-icon></v-btn
+          >
         </v-flex>
         <codemirror
           v-model="sqlQuery"
@@ -17,14 +19,16 @@
           @ready="onCmReady"
         >
         </codemirror>
-        <v-btn block color="primary"  dark v-on:click="runSql()"><h2>RUN</h2></v-btn>
-        <br>
-        <br>
+        <v-btn block color="primary" dark v-on:click="runSql()"
+          ><h2>RUN</h2></v-btn
+        >
+        <br />
+        <br />
         <div v-if="queryExecuting">
           <v-progress-circular
-                  :size="50"
-                  color="primary"
-                  indeterminate
+            :size="50"
+            color="primary"
+            indeterminate
           ></v-progress-circular>
         </div>
         <div v-if="sqlQuerySuccess !== ''">
@@ -99,13 +103,13 @@ export default {
   methods: {
     async runSql() {
       let rawResult;
-      this.queryExecuting=true
-      this.sqlQuerySuccess=""
+      this.queryExecuting = true;
+      this.sqlQuerySuccess = "";
       try {
         rawResult = await BackendService.runSql(this.sqlQuery);
       } catch (e) {
         this.error = e.response.data.error || e.response.data.message;
-        this.queryExecuting=false
+        this.queryExecuting = false;
         return;
       }
       this.result = rawResult.data;
@@ -116,7 +120,7 @@ export default {
         this.headers.push({ text: k, value: k });
       }
       this.sqlQuerySuccess = this.sqlQuery;
-      this.queryExecuting=false
+      this.queryExecuting = false;
     },
 
     async saveQuery() {
@@ -180,5 +184,4 @@ export default {
 .lastQuery {
   text-align: left;
 }
-
 </style>

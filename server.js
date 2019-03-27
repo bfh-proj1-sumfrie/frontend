@@ -1,6 +1,6 @@
 const express = require("express");
 const serveStatic = require("serve-static");
-const compression = require('compression')
+const compression = require("compression");
 
 app = express();
 app.use(compression());

@@ -6,7 +6,12 @@
         <span class="font-weight-light logofont">SQL</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn flat color="white" href="https://github.com/bfh-proj1-sumfrie" target="_blank">
+      <v-btn
+        flat
+        color="white"
+        href="https://github.com/bfh-proj1-sumfrie"
+        target="_blank"
+      >
         <v-icon>fab fa-github</v-icon>
       </v-btn>
     </v-toolbar>
