@@ -1,6 +1,8 @@
 # frontend
 
-[![Build Status](https://travis-ci.org/bfh-proj1-sumfrie/frontend.svg?branch=master)](https://travis-ci.org/bfh-proj1-sumfrie/frontend)[![Greenkeeper badge](https://badges.greenkeeper.io/bfh-proj1-sumfrie/frontend.svg)](https://greenkeeper.io/)
+[![Build Status](https://travis-ci.org/bfh-proj1-sumfrie/frontend.svg?branch=master)](https://travis-ci.org/bfh-proj1-sumfrie/frontend)
+![GitHub tag (latest SemVer)](https://img.shields.io/github/tag/bfh-proj1-sumfrie/frontend.svg)
+[![Greenkeeper badge](https://badges.greenkeeper.io/bfh-proj1-sumfrie/frontend.svg)](https://greenkeeper.io/)
 
 ## Project setup
 ```
@@ -9,7 +11,7 @@ yarn install
 
 Define the following env variables: 
 
-`API_URL` the url where your api is hosted (without slash at the ebd).
+`VUE_APP_API_URL` the url where your api is hosted (without slash at the ebd).
 
 
 ### Compiles and hot-reloads for development
