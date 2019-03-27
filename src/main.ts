@@ -5,12 +5,9 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 import "./registerServiceWorker";
-const VueCodemirror = require("vue-codemirror");
 import "codemirror/lib/codemirror.css";
 import "codemirror/theme/darcula.css";
 import "codemirror/mode/sql/sql.js";
-
-Vue.use(VueCodemirror);
 
 Vue.config.productionTip = false;
 

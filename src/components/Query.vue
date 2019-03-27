@@ -65,6 +65,7 @@
 import BackendService from "../services/backend-service";
 import FileService from "../services/file-service";
 import exampleQueryService from "../services/example-query-service";
+import codemirror from "vue-codemirror/src/codemirror.vue";
 
 import "codemirror/addon/hint/show-hint.css";
 import "codemirror/mode/sql/sql";
@@ -75,6 +76,7 @@ import "codemirror/addon/display/placeholder";
 import "codemirror/addon/hint/sql-hint";
 import "codemirror/addon/hint/anyword-hint";
 export default {
+  components: { codemirror },
   data: () => ({
     result: [],
     headers: [],
