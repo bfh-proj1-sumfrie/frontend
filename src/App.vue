@@ -6,11 +6,15 @@
         <span class="font-weight-light logofont">SQL</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn flat href="https://github.com/bfh-proj1-sumfrie" target="_blank">
-        <span class="mr-2">Github</span>
+      <v-btn
+        flat
+        color="white"
+        href="https://github.com/bfh-proj1-sumfrie"
+        target="_blank"
+      >
+        <v-icon>fab fa-github</v-icon>
       </v-btn>
     </v-toolbar>
-
     <v-content>
       <QueryComponent />
     </v-content>
