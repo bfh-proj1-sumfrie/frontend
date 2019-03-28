@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <div v-if="error !== ''">
-      <v-alert :value="true" type="error">
+      <v-alert type="error">
         {{ error }}
       </v-alert>
     </div>
@@ -48,7 +48,7 @@
               ]"
             >
               <template v-slot:no-data>
-                <v-alert :value="true" color="error" icon="warning">
+                <v-alert color="error" icon="warning">
                   Sorry, nothing to display here :(
                 </v-alert>
               </template>
@@ -70,7 +70,6 @@ import BackendService from "../services/backend-service";
 import FileService from "../services/file-service";
 import exampleQueryService from "../services/example-query-service";
 import codemirror from "vue-codemirror/src/codemirror.vue";
-
 import "codemirror/addon/hint/show-hint.css";
 import "codemirror/mode/sql/sql";
 import "codemirror/addon/hint/show-hint";
