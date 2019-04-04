@@ -131,11 +131,12 @@ export default {
   }),
   methods: {
     async checkPaginationButton() {
-      this.buttonNextDisabled = !(this.maxPage > this.page);
+      this.buttonNextDisabled = !((this.maxPage - 1) > this.page);
       this.buttonPreviousDisabled = !(this.page > 0);
     },
     async changePageSize(pagesize) {
       this.pageSize = pagesize;
+      this.page = 0;
       this.runQuery(false);
     },
     async nextPage() {
