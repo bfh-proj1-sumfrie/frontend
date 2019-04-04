@@ -19,7 +19,7 @@
           @ready="onCmReady"
         >
         </codemirror>
-        <v-btn block color="primary" dark v-on:click="runSql()"
+        <v-btn block color="primary" dark v-on:click="runQuery()"
           ><h2>RUN</h2></v-btn
         >
         <br />
@@ -40,12 +40,7 @@
               :headers="headers"
               :items="result"
               class="elevation-1"
-              :rows-per-page-items="[
-                10,
-                50,
-                100,
-                { text: '$vuetify.dataIterator.rowsPerPageAll', value: -1 }
-              ]"
+              hide-actions
             >
               <template v-slot:no-data>
                 <v-alert color="error" icon="warning">
@@ -58,6 +53,34 @@
                 </td>
               </template>
             </v-data-table>
+            <v-layout align-end class="text-xs-center" :key="11" xs1>
+              <v-btn
+                :disabled="buttonPreviousDisabled"
+                block
+                color="primary"
+                dark
+                v-on:click="previousPage()"
+                >previous</v-btn
+              >
+              <v-flex>
+                <h2>Page {{ page }}</h2>
+              </v-flex>
+              <v-btn
+                :disabled="buttonNextDisabled"
+                block
+                color="primary"
+                dark
+                v-on:click="nextPage()"
+                >next</v-btn
+              >
+              <v-select
+                :items="pageSizes"
+                :label="pageSize"
+                height="2em"
+                @selected="changePageSize"
+                @change="changePageSize"
+              ></v-select>
+            </v-layout>
           </v-flex>
         </div>
       </v-flex>
@@ -82,6 +105,13 @@ export default {
   components: { codemirror },
   data: () => ({
     result: [],
+    buttonPreviousDisabled: true,
+    buttonNextDisabled: true,
+    pageSize: 10,
+    maxPage: 0,
+    page: 0,
+    pageSizes: [10, 50, 100],
+    pagination: {},
     headers: [],
     sqlQuery: "select * from block;",
     sqlQuerySuccess: "",
@@ -100,19 +130,43 @@ export default {
     }
   }),
   methods: {
-    async runSql() {
+    async checkPaginationButton() {
+      this.buttonNextDisabled = !(this.maxPage > this.page);
+      this.buttonPreviousDisabled = !(this.page > 0);
+    },
+    async changePageSize(pagesize) {
+      this.pageSize = pagesize;
+      this.runQuery(false);
+    },
+    async nextPage() {
+      this.page++;
+      this.runQuery(false);
+    },
+
+    async previousPage() {
+      if (this.page > 0) {
+        this.page--;
+        this.runQuery(false);
+      }
+    },
+    async runQuery(isNewQuery = true) {
       let rawResult;
       this.queryExecuting = true;
       this.sqlQuerySuccess = "";
+      if (isNewQuery) this.page = 0;
       try {
-        rawResult = await BackendService.runSql(this.sqlQuery);
+        rawResult = await BackendService.runQuery(
+          this.sqlQuery,
+          this.page,
+          this.pageSize
+        );
       } catch (e) {
         this.error = e.response.data.error || e.response.data.message;
         this.queryExecuting = false;
         return;
       }
-      this.result = rawResult.data;
-
+      this.maxPage = rawResult.data.pagination.max_pages;
+      this.result = rawResult.data.data;
       this.error = "";
       this.headers = [];
       for (let k in this.result[0]) {
@@ -120,6 +174,8 @@ export default {
       }
       this.sqlQuerySuccess = this.sqlQuery;
       this.queryExecuting = false;
+
+      this.checkPaginationButton();
     },
 
     async saveQuery() {
