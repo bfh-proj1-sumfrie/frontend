@@ -63,7 +63,7 @@
                 >previous</v-btn
               >
               <v-flex>
-                <h2>Page {{ page }}</h2>
+                <h2>Page {{ page + 1 }}</h2>
               </v-flex>
               <v-btn
                 :disabled="buttonNextDisabled"
