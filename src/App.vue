@@ -15,20 +15,17 @@
         <v-icon>fab fa-github</v-icon>
       </v-btn>
     </v-toolbar>
-    <v-content>
-      <QueryComponent />
+    <v-content transition="slide-x-transition">
+      <v-container>
+        <router-view></router-view>
+      </v-container>
     </v-content>
   </v-app>
 </template>
 
 <script>
-import QueryComponent from "./components/Query";
-
 export default {
   name: "App",
-  components: {
-    QueryComponent
-  },
   data() {
     return {
       //

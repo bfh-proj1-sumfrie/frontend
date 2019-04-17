@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <div id="query-component">
     <div v-if="error !== ''">
       <v-alert type="error">
         {{ error }}
@@ -99,7 +99,7 @@
         </div>
       </v-flex>
     </v-layout>
-  </v-container>
+  </div>
 </template>
 
 <script>
