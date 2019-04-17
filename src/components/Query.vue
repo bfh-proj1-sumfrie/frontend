@@ -53,35 +53,43 @@
                 </td>
               </template>
             </v-data-table>
-            <v-layout align-end class="text-xs-center" :key="11" xs1>
-              <v-btn
-                :disabled="buttonPreviousDisabled"
-                block
-                color="primary"
-                dark
-                v-on:click="previousPage()"
-                >previous</v-btn
-              >
-              <v-flex>
-                <h2>Page {{ page + 1 }}</h2>
-              </v-flex>
-              <v-btn
-                :disabled="buttonNextDisabled"
-                block
-                color="primary"
-                dark
-                v-on:click="nextPage()"
-                >next</v-btn
-              >
-              <v-select
-                :items="pageSizes"
-                :label="pageSize"
-                height="2em"
-                @selected="changePageSize"
-                @change="changePageSize"
-              ></v-select>
-            </v-layout>
           </v-flex>
+          <v-layout align-start justify-end row class="text-xs-center" :key="11">
+            <v-flex xs12 sm2 d-flex>
+              <v-select
+                      :items="pageSizes"
+                      :label="pageSize"
+                      height="2em"
+                      @selected="changePageSize"
+                      @change="changePageSize"
+              ></v-select>
+            </v-flex>
+          </v-layout>
+          <v-layout row justify-space-between>
+            <v-flex xs1>
+              <v-btn
+                      :disabled="buttonPreviousDisabled"
+                      flat
+                      icon
+                      v-on:click="previousPage()"
+              >
+                <v-icon>fa fa-arrow-circle-left</v-icon>
+              </v-btn>
+            </v-flex>
+            <v-flex xs1>
+              <h2>Page {{ page + 1 }}</h2>
+            </v-flex>
+            <v-flex xs1>
+              <v-btn
+                      :disabled="buttonNextDisabled"
+                      flat
+                      icon
+                      v-on:click="nextPage()"
+              >
+                <v-icon>fa fa-arrow-circle-right</v-icon>
+              </v-btn>
+            </v-flex>
+          </v-layout>
         </div>
       </v-flex>
     </v-layout>
