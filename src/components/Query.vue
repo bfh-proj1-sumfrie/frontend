@@ -54,24 +54,30 @@
               </template>
             </v-data-table>
           </v-flex>
-          <v-layout align-start justify-end row class="text-xs-center" :key="11">
+          <v-layout
+            align-start
+            justify-end
+            row
+            class="text-xs-center"
+            :key="11"
+          >
             <v-flex xs12 sm2 d-flex>
               <v-select
-                      :items="pageSizes"
-                      :label="pageSize"
-                      height="2em"
-                      @selected="changePageSize"
-                      @change="changePageSize"
+                :items="pageSizes"
+                :label="pageSize"
+                height="2em"
+                @selected="changePageSize"
+                @change="changePageSize"
               ></v-select>
             </v-flex>
           </v-layout>
           <v-layout row justify-space-between>
             <v-flex xs1>
               <v-btn
-                      :disabled="buttonPreviousDisabled"
-                      flat
-                      icon
-                      v-on:click="previousPage()"
+                :disabled="buttonPreviousDisabled"
+                flat
+                icon
+                v-on:click="previousPage()"
               >
                 <v-icon>fa fa-arrow-circle-left</v-icon>
               </v-btn>
@@ -81,10 +87,10 @@
             </v-flex>
             <v-flex xs1>
               <v-btn
-                      :disabled="buttonNextDisabled"
-                      flat
-                      icon
-                      v-on:click="nextPage()"
+                :disabled="buttonNextDisabled"
+                flat
+                icon
+                v-on:click="nextPage()"
               >
                 <v-icon>fa fa-arrow-circle-right</v-icon>
               </v-btn>
@@ -115,10 +121,10 @@ export default {
     result: [],
     buttonPreviousDisabled: true,
     buttonNextDisabled: true,
-    pageSize: '10',
+    pageSize: "10",
     maxPage: 0,
     page: 0,
-    pageSizes: ['10', '50', '100'],
+    pageSizes: ["10", "50", "100"],
     pagination: {},
     headers: [],
     sqlQuery: "select * from block;",
@@ -139,7 +145,7 @@ export default {
   }),
   methods: {
     async checkPaginationButton() {
-      this.buttonNextDisabled = !((this.maxPage - 1) > this.page);
+      this.buttonNextDisabled = !(this.maxPage - 1 > this.page);
       this.buttonPreviousDisabled = !(this.page > 0);
     },
     async changePageSize(pagesize) {
