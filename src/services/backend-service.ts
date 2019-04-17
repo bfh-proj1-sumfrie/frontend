@@ -5,10 +5,14 @@ export default class BackendService {
   /**
    *
    * @param query
+   * @param page
+   * @param pageSize
    */
-  static async runSql(query: string) {
+  static async runQuery(query: string, page: number, pageSize: number) {
     return await axios.post(config.api + "/query", {
-      sql: query
+      sql: query,
+      pageSize: pageSize,
+      page: page
     });
   }
 }
