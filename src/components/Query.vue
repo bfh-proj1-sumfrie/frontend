@@ -63,12 +63,12 @@
             class="text-xs-center"
             :key="11"
           >
-            <v-flex xs12 sm2 d-fley>
+            <v-flex class="xs2 pt-2"  d-fley>
               <v-btn fab small color="primary" dark v-on:click="saveAsCsv(result)">
                 <v-icon>fas fa-file-csv</v-icon>
               </v-btn>
             </v-flex>
-            <v-flex xs12 sm2 d-flex>
+            <v-flex xs10 sm2 d-flex>
               <v-select
                 :items="pageSizes"
                 :label="pageSize"
