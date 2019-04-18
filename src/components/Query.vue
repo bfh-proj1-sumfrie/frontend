@@ -112,7 +112,7 @@
               </v-btn>
             </v-flex>
             <v-flex xs1>
-              <h2>Page {{ page + 1 }}</h2>
+              <h2>Page {{ page + 1 }} of {{ maxPage }}</h2>
             </v-flex>
             <v-flex xs1>
               <v-btn
@@ -127,6 +127,7 @@
           </v-layout>
         </div>
       </v-flex>
+
       <!-- detail view  -->
       <v-layout row justify-center>
         <v-dialog
