@@ -48,9 +48,11 @@
                 </v-alert>
               </template>
               <template slot="items" slot-scope="myprops">
-                <td v-for="header in headers" v-bind:key="header.id">
-                  {{ myprops.item[header.value] }}
-                </td>
+                <tr @click="detailItem(myprops.item)">
+                  <td v-for="header in headers" v-bind:key="header.id">
+                    {{ myprops.item[header.value] }}
+                  </td>
+                </tr>
               </template>
             </v-data-table>
           </v-flex>
@@ -98,6 +100,27 @@
           </v-layout>
         </div>
       </v-flex>
+      <!-- detail view  -->
+      <v-layout row justify-center>
+        <v-dialog v-model="showDetailView" fullscreen hide-overlay transition="dialog-bottom-transition">
+          <v-card>
+            <v-toolbar dark color="primary">
+              <v-btn icon dark @click="showDetailView = false">
+                <v-icon>close</v-icon>
+              </v-btn>
+              <v-toolbar-title>Details</v-toolbar-title>
+            </v-toolbar>
+            <td v-for="header in headers" v-bind:key="header.id">
+              <v-list three-line subheader>
+                <v-list-tile avatar>
+                  {{ header.value + ":"}} {{ itemForDetailView[header.value] + "\n"}}
+                </v-list-tile>
+              </v-list>
+            </td>
+          </v-card>
+        </v-dialog>
+      </v-layout>
+      <!-- detail view  -->
     </v-layout>
   </div>
 </template>
@@ -122,6 +145,8 @@ export default {
     buttonPreviousDisabled: true,
     buttonNextDisabled: true,
     pageSize: "10",
+    itemForDetailView:[],
+    showDetailView: false,
     maxPage: 0,
     page: 0,
     pageSizes: ["10", "50", "100"],
@@ -144,6 +169,15 @@ export default {
     }
   }),
   methods: {
+    async detailItem(item) {
+      console.log("LALA" + JSON.stringify(item))
+      for(let i=0; i<item.length; i++) {
+        console.log(item[i])
+      }
+      this.itemForDetailView = item
+      this.showDetailView=true
+    },
+
     async checkPaginationButton() {
       this.buttonNextDisabled = !(this.maxPage - 1 > this.page);
       this.buttonPreviousDisabled = !(this.page > 0);
