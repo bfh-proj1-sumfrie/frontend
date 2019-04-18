@@ -12,10 +12,10 @@
             ><v-icon>fas fa-save</v-icon></v-btn
           >
           <v-btn fab small color="primary" dark>
-          <label class="text-reader">
-            <v-icon>fas fa-upload</v-icon>
-            <input type="file" @change="readQuery">
-          </label>
+            <label class="text-reader">
+              <v-icon>fas fa-upload</v-icon>
+              <input type="file" @change="readQuery" />
+            </label>
           </v-btn>
         </v-flex>
         <codemirror
@@ -69,8 +69,14 @@
             class="text-xs-center"
             :key="11"
           >
-            <v-flex class="xs2 pt-2"  d-fley>
-              <v-btn fab small color="primary" dark v-on:click="saveAsCsv(result)">
+            <v-flex class="xs2 pt-2" d-fley>
+              <v-btn
+                fab
+                small
+                color="primary"
+                dark
+                v-on:click="saveAsCsv(result)"
+              >
                 <v-icon>fas fa-file-csv</v-icon>
               </v-btn>
             </v-flex>
@@ -113,28 +119,44 @@
       </v-flex>
       <!-- detail view  -->
       <v-layout row justify-center>
-        <v-dialog v-model="showDetailView" fullscreen hide-overlay transition="dialog-bottom-transition">
+        <v-dialog
+          v-model="showDetailView"
+          fullscreen
+          hide-overlay
+          transition="dialog-bottom-transition"
+        >
           <v-card>
             <v-toolbar dark color="primary">
               <v-btn icon dark @click="showDetailView = false">
                 <v-icon>close</v-icon>
               </v-btn>
-              <v-toolbar-title><v-icon>fa fa-info-circle</v-icon> Details</v-toolbar-title>
+              <v-toolbar-title
+                ><v-icon>fa fa-info-circle</v-icon> Details</v-toolbar-title
+              >
               <v-spacer></v-spacer>
               <v-toolbar-items>
-                <v-btn dark flat @click="saveAsCsv([itemForDetailView])"><v-icon>fas fa-file-csv</v-icon></v-btn>
+                <v-btn dark flat @click="saveAsCsv([itemForDetailView])"
+                  ><v-icon>fas fa-file-csv</v-icon></v-btn
+                >
               </v-toolbar-items>
             </v-toolbar>
-            <br><br>
-            <v-layout class="wrap" v-for="i in parseInt(headers.length/3)+1" :key="i">
+            <br /><br />
+            <v-layout
+              class="wrap"
+              v-for="i in parseInt(headers.length / 3) + 1"
+              :key="i"
+            >
               <v-flex class="xs4 pl-5 pt-3" v-if="headers[i]">
-                <h3>{{ headers[i].value + ":"}}</h3> {{ itemForDetailView[headers[i].value]}}
+                <h3>{{ headers[i].value + ":" }}</h3>
+                {{ itemForDetailView[headers[i].value] }}
               </v-flex>
-              <v-flex class="xs4 pt-3" v-if="headers[i+1]">
-                <h3>{{ headers[i+1].value + ":"}}</h3> {{ itemForDetailView[headers[i+1].value]}}
+              <v-flex class="xs4 pt-3" v-if="headers[i + 1]">
+                <h3>{{ headers[i + 1].value + ":" }}</h3>
+                {{ itemForDetailView[headers[i + 1].value] }}
               </v-flex>
-              <v-flex class="xs4 pt-3" v-if="headers[i+2]">
-                <h3>{{ headers[i+2].value + ":"}}</h3> {{ itemForDetailView[headers[i+2].value]}}
+              <v-flex class="xs4 pt-3" v-if="headers[i + 2]">
+                <h3>{{ headers[i + 2].value + ":" }}</h3>
+                {{ itemForDetailView[headers[i + 2].value] }}
               </v-flex>
             </v-layout>
           </v-card>
@@ -166,7 +188,7 @@ export default {
     buttonPreviousDisabled: true,
     buttonNextDisabled: true,
     pageSize: "10",
-    itemForDetailView:[],
+    itemForDetailView: [],
     showDetailView: false,
     maxPage: 0,
     page: 0,
@@ -191,11 +213,11 @@ export default {
   }),
   methods: {
     async detailItem(item) {
-      this.itemForDetailView = item
-      this.showDetailView=true
+      this.itemForDetailView = item;
+      this.showDetailView = true;
     },
     saveAsCsv(data) {
-      FileService.generateCSV(data)
+      FileService.generateCSV(data);
     },
     async checkPaginationButton() {
       this.buttonNextDisabled = !(this.maxPage - 1 > this.page);
@@ -246,12 +268,12 @@ export default {
       this.checkPaginationButton();
     },
     async saveQuery() {
-      FileService.savefile(this.sqlQuery,"query.sql");
+      FileService.savefile(this.sqlQuery, "query.sql");
     },
     async readQuery(ev) {
       const file = ev.target.files[0];
       const reader = new FileReader();
-      reader.onload = e => this.sqlQuery =e.target.result;
+      reader.onload = e => (this.sqlQuery = e.target.result);
       let l = reader.readAsText(file);
     },
 
@@ -264,7 +286,7 @@ export default {
       });
     }
   }
-}
+};
 </script>
 
 <style>
@@ -333,5 +355,4 @@ export default {
   opacity: 0;
 }
 /* File reader*/
-
 </style>

@@ -20,6 +20,12 @@ describe("Query Component Test", () => {
         .findAll("v-btn-stub")
         .at(1)
         .text()
+    ).eq("fas fa-upload");
+    expect(
+      wrapper
+        .findAll("v-btn-stub")
+        .at(2)
+        .text()
     ).eq("RUN");
   });
 

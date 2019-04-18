@@ -1,5 +1,5 @@
 var FileSaver = require("file-saver");
-import { ExportToCsv } from 'export-to-csv';
+import { ExportToCsv } from "export-to-csv";
 
 export default class FileService {
   /**
@@ -10,16 +10,16 @@ export default class FileService {
     var blob = new Blob([sql], { type: "text/plain;charset=utf-8" });
     FileSaver.saveAs(blob, name);
   }
-  static async generateCSV(data:object){
+  static async generateCSV(data: object) {
     const options = {
-      fieldSeparator: ',',
+      fieldSeparator: ",",
       quoteStrings: '"',
-      decimalSeparator: '.',
+      decimalSeparator: ".",
       showLabels: true,
       showTitle: false,
       useTextFile: false,
       useBom: true,
-      useKeysAsHeaders: true,
+      useKeysAsHeaders: true
     };
     const csvExporter = new ExportToCsv(options);
     csvExporter.generateCsv(data);
