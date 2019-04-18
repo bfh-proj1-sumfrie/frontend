@@ -29,7 +29,6 @@
           ><h2>RUN</h2></v-btn
         >
         <br />
-        <br />
         <div v-if="queryExecuting">
           <v-progress-circular
             :size="50"
@@ -37,9 +36,20 @@
             indeterminate
           ></v-progress-circular>
         </div>
-        <div v-if="sqlQuerySuccess !== ''">
+        <div v-if="sqlQuerySuccess !== '' && result.length <= 0">
           <div class="lastQuery">
-            <h2>Last query: {{ sqlQuerySuccess }}</h2>
+            <v-alert :value="true" type="warning">
+              <h3>No Results for query:</h3>
+              {{ sqlQuerySuccess }}
+            </v-alert>
+          </div>
+        </div>
+        <div v-if="sqlQuerySuccess !== '' && result.length > 0">
+          <div class="lastQuery">
+            <v-alert :value="true" type="success">
+              <h3>Results for query:</h3>
+              {{ sqlQuerySuccess }}
+            </v-alert>
           </div>
           <v-flex xs12>
             <v-data-table
