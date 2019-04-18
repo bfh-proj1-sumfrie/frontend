@@ -110,13 +110,17 @@
               </v-btn>
               <v-toolbar-title>Details</v-toolbar-title>
             </v-toolbar>
-            <td v-for="header in headers" v-bind:key="header.id">
-              <v-list three-line subheader>
-                <v-list-tile avatar>
-                  {{ header.value + ":"}} {{ itemForDetailView[header.value] + "\n"}}
-                </v-list-tile>
-              </v-list>
-            </td>
+            <v-layout class="wrap" v-for="i in parseInt(headers.length/3)+1" :key="i">
+              <v-flex class="xs4" v-if="headers[i]">
+                {{ headers[i].value + ":"}} {{ itemForDetailView[headers[i].value]}}
+              </v-flex>
+              <v-flex class="xs4" v-if="headers[i+1]">
+                {{ headers[i+1].value + ":"}} {{ itemForDetailView[headers[i+1].value]}}
+              </v-flex>
+              <v-flex class="xs4" v-if="headers[i+2]">
+                {{ headers[i+2].value + ":"}} {{ itemForDetailView[headers[i+2].value]}}
+              </v-flex>
+            </v-layout>
           </v-card>
         </v-dialog>
       </v-layout>
