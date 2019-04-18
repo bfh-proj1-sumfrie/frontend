@@ -63,6 +63,11 @@
             class="text-xs-center"
             :key="11"
           >
+            <v-flex xs12 sm2 d-fley>
+              <v-btn fab small color="primary" dark v-on:click="saveAsCsv(result)">
+                <v-icon>fas fa-file-csv</v-icon>
+              </v-btn>
+            </v-flex>
             <v-flex xs12 sm2 d-flex>
               <v-select
                 :items="pageSizes"
@@ -108,17 +113,22 @@
               <v-btn icon dark @click="showDetailView = false">
                 <v-icon>close</v-icon>
               </v-btn>
-              <v-toolbar-title>Details</v-toolbar-title>
+              <v-toolbar-title><v-icon>fa fa-info-circle</v-icon> Details</v-toolbar-title>
+              <v-spacer></v-spacer>
+              <v-toolbar-items>
+                <v-btn dark flat @click="saveAsCsv([itemForDetailView])"><v-icon>fas fa-file-csv</v-icon></v-btn>
+              </v-toolbar-items>
             </v-toolbar>
+            <br><br>
             <v-layout class="wrap" v-for="i in parseInt(headers.length/3)+1" :key="i">
-              <v-flex class="xs4" v-if="headers[i]">
-                {{ headers[i].value + ":"}} {{ itemForDetailView[headers[i].value]}}
+              <v-flex class="xs4 pl-5 pt-3" v-if="headers[i]">
+                <h3>{{ headers[i].value + ":"}}</h3> {{ itemForDetailView[headers[i].value]}}
               </v-flex>
-              <v-flex class="xs4" v-if="headers[i+1]">
-                {{ headers[i+1].value + ":"}} {{ itemForDetailView[headers[i+1].value]}}
+              <v-flex class="xs4 pt-3" v-if="headers[i+1]">
+                <h3>{{ headers[i+1].value + ":"}}</h3> {{ itemForDetailView[headers[i+1].value]}}
               </v-flex>
-              <v-flex class="xs4" v-if="headers[i+2]">
-                {{ headers[i+2].value + ":"}} {{ itemForDetailView[headers[i+2].value]}}
+              <v-flex class="xs4 pt-3" v-if="headers[i+2]">
+                <h3>{{ headers[i+2].value + ":"}}</h3> {{ itemForDetailView[headers[i+2].value]}}
               </v-flex>
             </v-layout>
           </v-card>
@@ -174,14 +184,12 @@ export default {
   }),
   methods: {
     async detailItem(item) {
-      console.log("LALA" + JSON.stringify(item))
-      for(let i=0; i<item.length; i++) {
-        console.log(item[i])
-      }
       this.itemForDetailView = item
       this.showDetailView=true
     },
-
+    saveAsCsv(data) {
+      FileService.generateCSV(data)
+    },
     async checkPaginationButton() {
       this.buttonNextDisabled = !(this.maxPage - 1 > this.page);
       this.buttonPreviousDisabled = !(this.page > 0);
@@ -232,7 +240,7 @@ export default {
     },
 
     async saveQuery() {
-      FileService.savefile(this.sqlQuery);
+      FileService.savefile(this.sqlQuery,"query.sql");
     },
     onCmCodeChange(newCode) {
       this.sqlQuery = newCode;
