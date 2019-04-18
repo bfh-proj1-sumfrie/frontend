@@ -11,6 +11,12 @@
           <v-btn fab small color="primary" dark v-on:click="saveQuery()"
             ><v-icon>fas fa-save</v-icon></v-btn
           >
+          <v-btn fab small color="primary" dark>
+          <label class="text-reader">
+            <v-icon>fas fa-upload</v-icon>
+            <input type="file" @change="readQuery">
+          </label>
+          </v-btn>
         </v-flex>
         <codemirror
           v-model="sqlQuery"
@@ -156,6 +162,7 @@ export default {
   components: { codemirror },
   data: () => ({
     result: [],
+    text: "",
     buttonPreviousDisabled: true,
     buttonNextDisabled: true,
     pageSize: "10",
@@ -238,10 +245,16 @@ export default {
 
       this.checkPaginationButton();
     },
-
     async saveQuery() {
       FileService.savefile(this.sqlQuery,"query.sql");
     },
+    async readQuery(ev) {
+      const file = ev.target.files[0];
+      const reader = new FileReader();
+      reader.onload = e => this.sqlQuery =e.target.result;
+      let l = reader.readAsText(file);
+    },
+
     onCmCodeChange(newCode) {
       this.sqlQuery = newCode;
     },
@@ -251,7 +264,7 @@ export default {
       });
     }
   }
-};
+}
 </script>
 
 <style>
@@ -303,4 +316,22 @@ export default {
 .CodeMirror-scroll {
   z-index: 1;
 }
+
+/* File reader*/
+.text-reader {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+.text-reader input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  opacity: 0;
+}
+/* File reader*/
+
 </style>
