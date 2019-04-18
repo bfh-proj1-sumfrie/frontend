@@ -1,7 +1,7 @@
 <template>
   <div id="query-component">
     <div v-if="error !== ''">
-      <v-alert type="error">
+      <v-alert :value="true" type="error">
         {{ error }}
       </v-alert>
     </div>
@@ -59,7 +59,7 @@
               hide-actions
             >
               <template v-slot:no-data>
-                <v-alert color="error" icon="warning">
+                <v-alert :value="true" color="error" icon="warning">
                   Sorry, nothing to display here :(
                 </v-alert>
               </template>
@@ -112,7 +112,7 @@
               </v-btn>
             </v-flex>
             <v-flex xs1>
-              <h2>Page {{ page + 1 }} of {{ maxPage }}</h2>
+              <h2>Page {{ page + 1 }} of {{ maxPage + 1 }}</h2>
             </v-flex>
             <v-flex xs1>
               <v-btn
@@ -231,7 +231,7 @@ export default {
       FileService.generateCSV(data);
     },
     async checkPaginationButton() {
-      this.buttonNextDisabled = !(this.maxPage - 1 > this.page);
+      this.buttonNextDisabled = !(this.maxPage > this.page);
       this.buttonPreviousDisabled = !(this.page > 0);
     },
     async changePageSize(pagesize) {
@@ -262,7 +262,7 @@ export default {
           this.pageSize
         );
       } catch (e) {
-        this.error = e.response.data.error || e.response.data.message;
+        this.error = e.response.data.error;
         this.queryExecuting = false;
         return;
       }
