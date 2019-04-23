@@ -262,7 +262,7 @@ export default {
           this.pageSize
         );
       } catch (e) {
-        this.error = e.response.data.error;
+        this.error = e.response.data.message;
         this.queryExecuting = false;
         return;
       }
