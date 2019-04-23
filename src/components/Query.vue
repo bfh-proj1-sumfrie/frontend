@@ -154,29 +154,14 @@
             <br /><br />
             <v-layout
               class="wrap"
-              v-for="i in parseInt(headers.length / 3 + 1)"
-              :key="i"
             >
               <v-flex
-                class="xs4 pl-5 pt-3"
-                v-if="headers[(i - 1) * 3] && ((i - 1) * 3) % 3 === 0"
+                class="xs12 sm6 md4 lg3 pl-5 pt-3"
+                v-for="i in (headers.length) "
+                :key="i"
               >
-                <h3>{{ headers[(i - 1) * 3].value + ":" }}</h3>
-                {{ itemForDetailView[headers[(i - 1) * 3].value] }}
-              </v-flex>
-              <v-flex
-                class="xs4 pt-3"
-                v-if="headers[(i - 1) * 3 + 1] && ((i - 1) * 3 + 1) % 3 === 1"
-              >
-                <h3>{{ headers[(i - 1) * 3 + 1].value + ":" }}</h3>
-                {{ itemForDetailView[headers[(i - 1) * 3 + 1].value] }}
-              </v-flex>
-              <v-flex
-                class="xs4 pt-3"
-                v-if="headers[(i - 1) * 3 + 2] && ((i - 1) * 3 + 2) % 3 === 2"
-              >
-                <h3>{{ headers[(i - 1) * 3 + 2].value + ":" }}</h3>
-                {{ itemForDetailView[headers[(i - 1) * 3 + 2].value] }}
+                <h3>{{ headers[i-1].value + ":" }}</h3>
+                {{ itemForDetailView[headers[i-1].value] }}
               </v-flex>
             </v-layout>
           </v-card>
