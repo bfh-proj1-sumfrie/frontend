@@ -152,16 +152,14 @@
               </v-toolbar-items>
             </v-toolbar>
             <br /><br />
-            <v-layout
-              class="wrap"
-            >
+            <v-layout class="wrap">
               <v-flex
                 class="xs12 sm6 md4 lg3 pl-5 pt-3"
-                v-for="i in (headers.length) "
+                v-for="i in headers.length"
                 :key="i"
               >
-                <h3>{{ headers[i-1].value + ":" }}</h3>
-                {{ itemForDetailView[headers[i-1].value] }}
+                <h3>{{ headers[i - 1].value + ":" }}</h3>
+                {{ itemForDetailView[headers[i - 1].value] }}
               </v-flex>
             </v-layout>
           </v-card>
