@@ -8,16 +8,40 @@
     <v-layout text-xs-center wrap>
       <v-flex xs12>
         <v-flex class="text-xs-right" xs12>
+          <!-- Save as button  -->
           <v-btn fab small color="primary" dark v-on:click="saveQuery()"
             ><v-icon>fas fa-save</v-icon></v-btn
           >
+          <!-- Load as button  -->
           <v-btn fab small color="primary" dark>
             <label class="text-reader">
               <v-icon>fas fa-upload</v-icon>
               <input type="file" @change="readQuery" />
             </label>
           </v-btn>
+          <!-- Menus  -->
+          <v-menu offset-y>
+            <template v-slot:activator="{ on }">
+              <v-btn
+                      color="primary"
+                      dark
+                      v-on="on"
+              >
+                <v-icon>fas fa-book</v-icon>
+              </v-btn>
+            </template>
+            <v-list>
+              <v-list-tile
+                      v-for="(query, index) in queryExample"
+                      :key="index"
+                      @click="loadExampleQuery(query)"
+              >
+                <v-list-tile-title>{{ query.title }}</v-list-tile-title>
+              </v-list-tile>
+            </v-list>
+          </v-menu>
         </v-flex>
+        <!-- SQL query editor  -->
         <codemirror
           v-model="sqlQuery"
           :options="cmOptions"
@@ -25,6 +49,7 @@
           @ready="onCmReady"
         >
         </codemirror>
+        <!-- Run query button  -->
         <v-btn block color="primary" dark v-on:click="runQuery()"
           ><h2>RUN</h2></v-btn
         >
@@ -36,6 +61,7 @@
             indeterminate
           ></v-progress-circular>
         </div>
+        <!-- Warning notification if query has no entrys  -->
         <div v-if="sqlQuerySuccess !== '' && result.length <= 0">
           <div class="lastQuery">
             <v-alert :value="true" type="warning">
@@ -44,6 +70,7 @@
             </v-alert>
           </div>
         </div>
+        <!-- Success notification if query was ok  -->
         <div v-if="sqlQuerySuccess !== '' && result.length > 0">
           <div class="lastQuery">
             <v-alert :value="true" type="success">
@@ -52,6 +79,7 @@
             </v-alert>
           </div>
           <v-flex xs12>
+            <!-- Table with results from query  -->
             <v-data-table
               :headers="headers"
               :items="result"
@@ -79,6 +107,7 @@
             class="text-xs-center"
             :key="11"
           >
+            <!-- Export results as csv button  -->
             <v-flex class="xs2 pt-2" d-fley>
               <v-btn
                 fab
@@ -90,6 +119,7 @@
                 <v-icon>fas fa-file-csv</v-icon>
               </v-btn>
             </v-flex>
+            <!-- Pagination  -->
             <v-flex xs10 sm2 d-flex>
               <v-select
                 :items="pageSizes"
@@ -138,6 +168,7 @@
         >
           <v-card>
             <v-toolbar dark color="primary">
+              <!-- Close detailview  -->
               <v-btn icon dark @click="showDetailView = false">
                 <v-icon>close</v-icon>
               </v-btn>
@@ -145,6 +176,7 @@
                 ><v-icon>fa fa-info-circle</v-icon> Details</v-toolbar-title
               >
               <v-spacer></v-spacer>
+              <!-- Export entry as csv  -->
               <v-toolbar-items>
                 <v-btn dark flat @click="saveAsCsv([itemForDetailView])"
                   ><v-icon>fas fa-file-csv</v-icon></v-btn
@@ -215,6 +247,9 @@ export default {
     }
   }),
   methods: {
+    async loadExampleQuery(query) {
+      this.sqlQuery = query.query
+    },
     async detailItem(item) {
       this.itemForDetailView = item;
       this.showDetailView = true;
