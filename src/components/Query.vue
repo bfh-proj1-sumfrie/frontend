@@ -22,19 +22,15 @@
           <!-- Menus  -->
           <v-menu offset-y>
             <template v-slot:activator="{ on }">
-              <v-btn
-                      color="primary"
-                      dark
-                      v-on="on"
-              >
+              <v-btn color="primary" dark v-on="on">
                 <v-icon>fas fa-book</v-icon>
               </v-btn>
             </template>
             <v-list>
               <v-list-tile
-                      v-for="(query, index) in queryExample"
-                      :key="index"
-                      @click="loadExampleQuery(query)"
+                v-for="(query, index) in queryExample"
+                :key="index"
+                @click="loadExampleQuery(query)"
               >
                 <v-list-tile-title>{{ query.title }}</v-list-tile-title>
               </v-list-tile>
@@ -248,7 +244,7 @@ export default {
   }),
   methods: {
     async loadExampleQuery(query) {
-      this.sqlQuery = query.query
+      this.sqlQuery = query.query;
     },
     async detailItem(item) {
       this.itemForDetailView = item;
