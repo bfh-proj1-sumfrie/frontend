@@ -20,7 +20,7 @@
             </label>
           </v-btn>
           <!-- Menus  -->
-          <v-menu offset-y>
+          <v-menu offset-y :full-width="true">
             <template v-slot:activator="{ on }">
               <v-btn color="primary" dark v-on="on">
                 <v-icon>fas fa-book</v-icon>
@@ -244,6 +244,7 @@ export default {
   }),
   methods: {
     async loadExampleQuery(query) {
+      console.log();
       this.sqlQuery = query.query;
     },
     async detailItem(item) {
@@ -318,7 +319,25 @@ export default {
       cm.on("keypress", () => {
         cm.showHint({ completeSingle: false });
       });
+    },
+    executeTheSearch() {
+      let s = decodeURI(this.searchString);
+      this.sqlQuery =
+        "SELECT * FROM block \nWHERE\n  block_hash = '" +
+        s +
+        "'  \nOR\n  id = '" +
+        s +
+        "';";
+      this.runQuery();
     }
+  },
+  created: function() {
+    if (typeof this.searchString !== "undefined") {
+      this.executeTheSearch();
+    }
+  },
+  props: {
+    searchString: String
   }
 };
 </script>

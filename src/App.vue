@@ -9,10 +9,22 @@
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-sm-and-down">
+        <v-flex xs12 sm6 md6>
+          <v-text-field
+            label="Search"
+            hint="Address, hash, txid.."
+            clearable
+            @keyup.enter="search()"
+            @input="
+              value => {
+                searchString = value;
+              }
+            "
+          ></v-text-field>
+        </v-flex>
         <v-btn flat color="white" to="/about">
           <v-icon>fa fa-info</v-icon>
         </v-btn>
-
         <v-btn
           flat
           color="white"
@@ -36,8 +48,14 @@ export default {
   name: "App",
   data() {
     return {
+      searchString: ""
       //
     };
+  },
+  methods: {
+    search() {
+      window.open("/search/" + encodeURI(this.searchString), "_blank");
+    }
   }
 };
 </script>
