@@ -414,11 +414,12 @@ export default {
   position: absolute;
   left: 0px;
   top: 0px;
+  z-index: 1;
 }
 
 .CodeMirror-hints {
   position: absolute;
-  z-index: 10;
+  z-index: 0;
   overflow: hidden;
   list-style: none;
 
@@ -457,7 +458,7 @@ export default {
   text-align: left;
 }
 .CodeMirror-scroll {
-  z-index: 1;
+  z-index: 0;
 }
 
 /* File reader*/
