@@ -2,6 +2,7 @@ import Vue from "vue";
 import Router from "vue-router";
 import Home from "./views/Home.vue";
 import Query from "./components/Query.vue";
+import Schema from "./components/Schema.vue";
 
 Vue.use(Router);
 
@@ -19,6 +20,11 @@ export default new Router({
       name: "home",
       component: Query,
       props: true
+    },
+    {
+      path: "/schema",
+      name: "schema",
+      component: Schema
     },
     {
       path: "/about",
