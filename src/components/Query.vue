@@ -6,6 +6,55 @@
       </v-alert>
     </div>
     <v-layout text-xs-center wrap>
+      <!-- Side bar  -->
+      <v-flex xs3 v-if="sideBarActive">
+        <v-navigation-drawer stateless value="true" id="exampleNavigator">
+          <v-list>
+            <!-- Title -->
+            <v-list-tile>
+              <v-list-tile-title @click="sideBarActive = false"
+                ><v-icon>fas fa-arrow-left</v-icon></v-list-tile-title
+              >
+            </v-list-tile>
+
+            <v-list-group
+              :prepend-icon="queryCategory.icon_name"
+              value="true"
+              v-for="queryCategory in queryExample"
+              :key="queryCategory"
+            >
+              <template v-slot:activator>
+                <v-list-tile>
+                  <v-list-tile-title>{{
+                    queryCategory.main_title
+                  }}</v-list-tile-title>
+                </v-list-tile>
+              </template>
+              <v-list-tile
+                v-for="query in queryCategory.queries"
+                :key="query"
+                @click="loadExampleQuery(query)"
+              >
+                <v-list-tile-title v-text="query.title"></v-list-tile-title>
+              </v-list-tile>
+            </v-list-group>
+            <v-list-group :prepend-icon="home" value="true">
+              <template v-slot:activator>
+                <v-list-tile>
+                  <v-list-tile-title>User saved queries</v-list-tile-title>
+                </v-list-tile>
+              </template>
+              <v-list-tile
+                v-for="query in userSavedQueries"
+                :key="query"
+                @click="loadExampleQuery(query)"
+              >
+                <v-list-tile-title v-text="query.title"></v-list-tile-title>
+              </v-list-tile>
+            </v-list-group>
+          </v-list>
+        </v-navigation-drawer>
+      </v-flex>
       <v-flex xs12>
         <v-flex class="text-xs-right" xs12>
           <!-- Save as button  -->
@@ -19,23 +68,6 @@
               <input type="file" @change="readQuery" />
             </label>
           </v-btn>
-          <!-- Menus  -->
-          <v-menu offset-y :full-width="true">
-            <template v-slot:activator="{ on }">
-              <v-btn color="primary" dark v-on="on">
-                <v-icon>fas fa-book</v-icon>
-              </v-btn>
-            </template>
-            <v-list>
-              <v-list-tile
-                v-for="(query, index) in queryExample"
-                :key="index"
-                @click="loadExampleQuery(query)"
-              >
-                <v-list-tile-title>{{ query.title }}</v-list-tile-title>
-              </v-list-tile>
-            </v-list>
-          </v-menu>
         </v-flex>
         <!-- SQL query editor  -->
         <codemirror
@@ -193,8 +225,20 @@
           </v-card>
         </v-dialog>
       </v-layout>
-      <!-- detail view  -->
     </v-layout>
+    <v-btn
+      absolute
+      dark
+      fab
+      top
+      left
+      color="primary"
+      @click="sideBarActive = true"
+      v-if="!sideBarActive"
+      id="floatingButton"
+    >
+      <v-icon>fas fa-arrow-right</v-icon>
+    </v-btn>
   </div>
 </template>
 
@@ -221,6 +265,7 @@ export default {
     pageSize: "10",
     itemForDetailView: [],
     showDetailView: false,
+    sideBarActive: false,
     maxPage: 0,
     page: 0,
     pageSizes: ["10", "50", "100"],
@@ -240,12 +285,21 @@ export default {
       CodeMirror: {
         "font-size": "20px"
       }
-    }
+    },
+    userSavedQueries: [
+      {
+        title: "test1",
+        query: "test query 1"
+      },
+      {
+        title: "test2",
+        query: "test query 2"
+      }
+    ]
   }),
   methods: {
-    async loadExampleQuery(query) {
-      console.log();
-      this.sqlQuery = query.query;
+    async loadExampleQuery(input) {
+      this.sqlQuery = input.query;
     },
     async detailItem(item) {
       this.itemForDetailView = item;
@@ -338,6 +392,11 @@ export default {
   },
   props: {
     searchString: String
+  },
+  mounted() {
+    if (typeof localStorage !== "undefined" && localStorage.userSavedQueries) {
+      this.userSavedQueries = localStorage.userSavedQueries;
+    }
   }
 };
 </script>
@@ -346,6 +405,15 @@ export default {
 .CodeMirror {
   text-align: left;
   font-size: 1.6rem;
+}
+#floatingButton {
+  position: absolute;
+  top: 5px;
+}
+#exampleNavigator {
+  position: absolute;
+  left: 0px;
+  top: 0px;
 }
 
 .CodeMirror-hints {
