@@ -15,4 +15,11 @@ export default class BackendService {
       page: page
     });
   }
+
+  /**
+   * Get the schema
+   */
+  static async getSchema() {
+    return await axios.get(config.api + "/schema");
+  }
 }
