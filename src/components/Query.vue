@@ -38,7 +38,11 @@
                 <v-list-tile-title v-text="query.title"></v-list-tile-title>
               </v-list-tile>
             </v-list-group>
-            <v-list-group :prepend-icon="home" value="true">
+            <v-list-group
+              v-if="userSavedQueries.length !== 0"
+              :prepend-icon="home"
+              value="true"
+            >
               <template v-slot:activator>
                 <v-list-tile>
                   <v-list-tile-title>User saved queries</v-list-tile-title>
@@ -286,16 +290,7 @@ export default {
         "font-size": "20px"
       }
     },
-    userSavedQueries: [
-      {
-        title: "test1",
-        query: "test query 1"
-      },
-      {
-        title: "test2",
-        query: "test query 2"
-      }
-    ]
+    userSavedQueries: []
   }),
   methods: {
     async loadExampleQuery(input) {
@@ -357,7 +352,10 @@ export default {
       this.checkPaginationButton();
     },
     async saveQuery() {
-      FileService.savefile(this.sqlQuery, "query.sql");
+      //FileService.savefile(this.sqlQuery, "query.sql");
+      this.userSavedQueries.push({ title: "test22", query: this.sqlQuery });
+      console.log(JSON.stringify(this.userSavedQueries));
+      localStorage.userSavedQueries = JSON.stringify(this.userSavedQueries);
     },
     async readQuery(ev) {
       const file = ev.target.files[0];
@@ -395,7 +393,7 @@ export default {
   },
   mounted() {
     if (typeof localStorage !== "undefined" && localStorage.userSavedQueries) {
-      this.userSavedQueries = localStorage.userSavedQueries;
+      this.userSavedQueries = JSON.parse(localStorage.userSavedQueries);
     }
   }
 };
