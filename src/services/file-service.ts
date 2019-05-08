@@ -6,10 +6,6 @@ export default class FileService {
    *
    * @param query
    */
-  static async savefile(sql: string, name: string) {
-    var blob = new Blob([sql], { type: "text/plain;charset=utf-8" });
-    FileSaver.saveAs(blob, name);
-  }
   static async generateCSV(data: object) {
     const options = {
       fieldSeparator: ",",

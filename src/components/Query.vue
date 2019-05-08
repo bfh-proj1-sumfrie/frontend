@@ -15,6 +15,15 @@
               <v-list-tile-title @click="sideBarActive = false"
                 ><v-icon>fas fa-arrow-left</v-icon></v-list-tile-title
               >
+              <v-btn
+                      left
+                      fab
+                      small
+                      color="transparent"
+                      dark
+                      v-on:click="showCustomQueryNamingDialog = true"
+              ><v-icon>fas fa-save</v-icon></v-btn
+              >
             </v-list-tile>
 
             <v-list-group
@@ -68,24 +77,6 @@
         </v-navigation-drawer>
       </v-flex>
       <v-flex xs12>
-        <v-flex class="text-xs-right" xs12>
-          <!-- Save as button  -->
-          <v-btn
-            fab
-            small
-            color="primary"
-            dark
-            v-on:click="showCustomQueryNamingDialog = true"
-            ><v-icon>fas fa-save</v-icon></v-btn
-          >
-          <!-- Load as button  -->
-          <v-btn fab small color="primary" dark>
-            <label class="text-reader">
-              <v-icon>fas fa-upload</v-icon>
-              <input type="file" @change="readQuery" />
-            </label>
-          </v-btn>
-        </v-flex>
         <!-- SQL query editor  -->
         <codemirror
           v-model="sqlQuery"
@@ -260,10 +251,13 @@
       <v-card>
         <v-card-title class="headline">Save</v-card-title>
         <v-text-field
+          clearable
           label="Name"
           single-line
           maxlength="15"
           hint="Enter name to save your query"
+          :autofocus="true"
+          :value="nameCustomQuery"
           @keyup.enter="saveQuery()"
           @input="
             value => {
@@ -284,7 +278,7 @@
             flat="flat"
             @click="
               showCustomQueryNamingDialog = false;
-              this.nameCustomQuery = '';
+              nameCustomQuery = ''
             "
           >
             Discard
@@ -409,8 +403,8 @@ export default {
         query: this.sqlQuery
       });
       localStorage.userSavedQueries = JSON.stringify(this.userSavedQueries);
-      this.nameCustomQuery = "";
       this.showCustomQueryNamingDialog = false;
+      this.nameCustomQuery = ''
     },
     deleteQuery(index) {
       this.userSavedQueries.splice(index, 1);
@@ -523,21 +517,4 @@ export default {
 .CodeMirror-scroll {
   z-index: 0;
 }
-
-/* File reader*/
-.text-reader {
-  position: relative;
-  overflow: hidden;
-  display: inline-block;
-  padding: 8px 12px;
-  cursor: pointer;
-}
-.text-reader input {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: -1;
-  opacity: 0;
-}
-/* File reader*/
 </style>
