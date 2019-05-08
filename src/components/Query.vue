@@ -40,7 +40,7 @@
             </v-list-group>
             <v-list-group
               v-if="userSavedQueries.length !== 0"
-              :prepend-icon="home"
+              prepend-icon="home"
               value="true"
             >
               <template v-slot:activator>
@@ -49,11 +49,19 @@
                 </v-list-tile>
               </template>
               <v-list-tile
-                v-for="query in userSavedQueries"
-                :key="query"
-                @click="loadExampleQuery(query)"
+                v-for="(value, index) in userSavedQueries"
+                :key="value"
+                id="sampleQueries"
               >
-                <v-list-tile-title v-text="query.title"></v-list-tile-title>
+                <v-list-tile-title
+                  @click="loadExampleQuery(value)"
+                  v-text="value.title"
+                ></v-list-tile-title>
+                <v-list-tile-action>
+                  <v-icon right @click="deleteQuery(index)"
+                    >fas fa-trash-alt</v-icon
+                  >
+                </v-list-tile-action>
               </v-list-tile>
             </v-list-group>
           </v-list>
@@ -62,7 +70,12 @@
       <v-flex xs12>
         <v-flex class="text-xs-right" xs12>
           <!-- Save as button  -->
-          <v-btn fab small color="primary" dark v-on:click="saveQuery()"
+          <v-btn
+            fab
+            small
+            color="primary"
+            dark
+            v-on:click="showCustomQueryNamingDialog = true"
             ><v-icon>fas fa-save</v-icon></v-btn
           >
           <!-- Load as button  -->
@@ -233,16 +246,52 @@
     <v-btn
       absolute
       dark
-      fab
+      round
       top
       left
       color="primary"
       @click="sideBarActive = true"
       v-if="!sideBarActive"
       id="floatingButton"
+      ><v-icon right>fas fa-arrow-right</v-icon></v-btn
     >
-      <v-icon>fas fa-arrow-right</v-icon>
-    </v-btn>
+    <!-- Popup to enter save name -->
+    <v-dialog v-model="showCustomQueryNamingDialog" max-width="290">
+      <v-card>
+        <v-card-title class="headline">Save</v-card-title>
+        <v-text-field
+          label="Name"
+          single-line
+          maxlength="15"
+          hint="Enter name to save your query"
+          @keyup.enter="saveQuery()"
+          @input="
+            value => {
+              nameCustomQuery = value;
+            }
+          "
+        ></v-text-field>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+
+          <v-btn color="primary" flat="flat" @click="saveQuery()">
+            Save
+          </v-btn>
+
+          <v-btn
+            color="primary"
+            flat="flat"
+            @click="
+              showCustomQueryNamingDialog = false;
+              this.nameCustomQuery = '';
+            "
+          >
+            Discard
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -262,6 +311,7 @@ import "codemirror/addon/hint/anyword-hint";
 export default {
   components: { codemirror },
   data: () => ({
+    nameCustomQuery: "",
     result: [],
     text: "",
     buttonPreviousDisabled: true,
@@ -279,6 +329,7 @@ export default {
     sqlQuerySuccess: "",
     queryExecuting: false,
     error: "",
+    showCustomQueryNamingDialog: false,
     queryExample: exampleQueryService.getExample(),
     cmOptions: {
       // codemirror options
@@ -352,9 +403,17 @@ export default {
       this.checkPaginationButton();
     },
     async saveQuery() {
-      //FileService.savefile(this.sqlQuery, "query.sql");
-      this.userSavedQueries.push({ title: "test22", query: this.sqlQuery });
-      console.log(JSON.stringify(this.userSavedQueries));
+      if (this.nameCustomQuery === "") this.nameCustomQuery = "unnamed query";
+      this.userSavedQueries.push({
+        title: this.nameCustomQuery,
+        query: this.sqlQuery
+      });
+      localStorage.userSavedQueries = JSON.stringify(this.userSavedQueries);
+      this.nameCustomQuery = "";
+      this.showCustomQueryNamingDialog = false;
+    },
+    deleteQuery(index) {
+      this.userSavedQueries.splice(index, 1);
       localStorage.userSavedQueries = JSON.stringify(this.userSavedQueries);
     },
     async readQuery(ev) {
@@ -406,13 +465,19 @@ export default {
 }
 #floatingButton {
   position: absolute;
-  top: 5px;
+  top: 15px;
+  left: -30px;
+  width: 20px;
 }
 #exampleNavigator {
   position: absolute;
   left: 0px;
   top: 0px;
   z-index: 1;
+}
+
+#sampleQueries:hover {
+  background-color: #515151;
 }
 
 .CodeMirror-hints {
