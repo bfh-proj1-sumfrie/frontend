@@ -28,7 +28,7 @@
 
             <v-list-group
               :prepend-icon="queryCategory.icon_name"
-              value="true"
+              :value="false"
               v-for="queryCategory in queryExample"
               :key="queryCategory"
             >
@@ -49,12 +49,12 @@
             </v-list-group>
             <v-list-group
               v-if="userSavedQueries.length !== 0"
-              prepend-icon="home"
-              value="true"
+              prepend-icon="fas fa-folder-open"
+              :value="true"
             >
               <template v-slot:activator>
                 <v-list-tile>
-                  <v-list-tile-title>User saved queries</v-list-tile-title>
+                  <v-list-tile-title>Custom queries</v-list-tile-title>
                 </v-list-tile>
               </template>
               <v-list-tile

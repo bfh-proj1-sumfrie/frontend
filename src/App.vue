@@ -9,7 +9,7 @@
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-sm-and-down">
-        <v-flex xs12 sm6 md6>
+        <v-flex xs12 sm6 md6 mr5>
           <v-text-field
             label="Search"
             hint="Address, hash, txid.."
@@ -22,6 +22,9 @@
             "
           ></v-text-field>
         </v-flex>
+        <v-btn flat color="white" to="/">
+          <v-icon>fa fa-search</v-icon>
+        </v-btn>
         <v-btn flat color="white" to="/schema">
           <v-icon>fa fa-database</v-icon>
         </v-btn>
