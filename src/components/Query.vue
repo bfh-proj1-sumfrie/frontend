@@ -16,13 +16,13 @@
                 ><v-icon>fas fa-arrow-left</v-icon></v-list-tile-title
               >
               <v-btn
-                      left
-                      fab
-                      small
-                      color="transparent"
-                      dark
-                      v-on:click="showCustomQueryNamingDialog = true"
-              ><v-icon>fas fa-save</v-icon></v-btn
+                left
+                fab
+                small
+                color="transparent"
+                dark
+                v-on:click="showCustomQueryNamingDialog = true"
+                ><v-icon>fas fa-save</v-icon></v-btn
               >
             </v-list-tile>
 
@@ -278,7 +278,7 @@
             flat="flat"
             @click="
               showCustomQueryNamingDialog = false;
-              nameCustomQuery = ''
+              nameCustomQuery = '';
             "
           >
             Discard
@@ -404,7 +404,7 @@ export default {
       });
       localStorage.userSavedQueries = JSON.stringify(this.userSavedQueries);
       this.showCustomQueryNamingDialog = false;
-      this.nameCustomQuery = ''
+      this.nameCustomQuery = "";
     },
     deleteQuery(index) {
       this.userSavedQueries.splice(index, 1);
