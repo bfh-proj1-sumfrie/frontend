@@ -86,9 +86,15 @@
         >
         </codemirror>
         <!-- Run query button  -->
-        <v-btn block color="primary" dark v-on:click="runQuery()"
-          ><h2>RUN</h2></v-btn
+        <v-btn
+          block
+          color="primary"
+          dark
+          v-on:click="runQuery()"
+          class="run-button"
         >
+          RUN
+        </v-btn>
         <br />
         <div v-if="queryExecuting">
           <v-progress-circular
@@ -177,9 +183,7 @@
                 <v-icon>fa fa-arrow-circle-left</v-icon>
               </v-btn>
             </v-flex>
-            <v-flex xs1>
-              <h2>Page {{ page + 1 }} of {{ maxPage + 1 }}</h2>
-            </v-flex>
+            <v-flex xs10> Page {{ page + 1 }} of {{ maxPage + 1 }} </v-flex>
             <v-flex xs1>
               <v-btn
                 :disabled="buttonNextDisabled"
@@ -453,6 +457,11 @@ export default {
 </script>
 
 <style>
+.run-button {
+  color: white;
+  font-size: 1.6rem;
+  font-weight: bold;
+}
 .CodeMirror {
   text-align: left;
   font-size: 1.6rem;
@@ -511,10 +520,17 @@ export default {
   background: #08f;
   color: white;
 }
+
 .lastQuery {
   text-align: left;
 }
+
 .CodeMirror-scroll {
   z-index: 0;
+}
+
+.v-alert > div > h3 {
+  color: white;
+  font-weight: bold;
 }
 </style>
