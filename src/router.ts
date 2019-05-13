@@ -3,6 +3,7 @@ import Router from "vue-router";
 import Home from "./views/Home.vue";
 import Query from "./components/Query.vue";
 import Schema from "./components/Schema.vue";
+import Block from "./components/Block.vue";
 
 Vue.use(Router);
 
@@ -25,6 +26,11 @@ export default new Router({
       path: "/schema",
       name: "schema",
       component: Schema
+    },
+    {
+      path: "/block",
+      name: "block",
+      component: Block
     },
     {
       path: "/about",
