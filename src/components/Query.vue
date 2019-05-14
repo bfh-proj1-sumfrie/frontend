@@ -43,6 +43,7 @@
                 v-for="query in queryCategory.queries"
                 :key="query"
                 @click="loadExampleQuery(query)"
+                :disabled="!query.active"
               >
                 <v-list-tile-title v-text="query.title"></v-list-tile-title>
               </v-list-tile>
