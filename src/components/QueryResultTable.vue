@@ -18,7 +18,7 @@
         </div>
       </div>
       <!-- Success notification if query was ok  -->
-      <div v-if="result.length > 0">
+      <div v-if="result.length > 0 && !isStatic">
         <div class="lastQuery">
           <v-alert :value="true" type="success">
             <h3>Results for query:</h3>
@@ -150,6 +150,10 @@ export default {
     query: {
       type: String,
       default: "" // intentionally left empty -> change detection needs any value
+    },
+    isStatic: {
+      type: Boolean,
+      default: false
     }
   },
   watch: {
@@ -225,6 +229,11 @@ export default {
       this.queryExecuting = false;
 
       this.checkPaginationButton();
+    }
+  },
+  created: function() {
+    if (this.isStatic) {
+      this.runQuery(this.query);
     }
   }
 };

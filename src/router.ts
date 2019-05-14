@@ -28,8 +28,8 @@ export default new Router({
       component: Schema
     },
     {
-      path: "/block",
-      name: "block",
+      path: "/explorer",
+      name: "explorer",
       component: Block
     },
     {

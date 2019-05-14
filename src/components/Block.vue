@@ -5,17 +5,25 @@
         <v-flex xs12>
           <h1>Block Explorer</h1>
         </v-flex>
+        <v-flex xs12>
+          <QueryResultTable
+            v-bind:query="query"
+            v-bind:is-static="true"
+          ></QueryResultTable>
+        </v-flex>
       </v-layout>
     </v-container>
   </div>
 </template>
 
 <script>
-import BackendService from "../services/backend-service";
+import QueryResultTable from "./QueryResultTable";
+import config from "../../config";
 
 export default {
-  data: () => ({}),
-  methods: {},
-  created: function() {}
+  components: { QueryResultTable },
+  data: () => ({
+    query: config.defaultQuery
+  })
 };
 </script>

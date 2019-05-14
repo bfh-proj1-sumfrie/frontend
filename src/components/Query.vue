@@ -166,6 +166,8 @@ import "codemirror/addon/display/placeholder";
 import "codemirror/addon/hint/sql-hint";
 import "codemirror/addon/hint/anyword-hint";
 import QueryResultTable from "./QueryResultTable";
+import config from "../../config";
+
 export default {
   components: { QueryResultTable, codemirror },
   data: () => ({
@@ -174,7 +176,7 @@ export default {
     queryToRun: "",
     error: "",
     text: "",
-    sqlQuery: "select * from block;",
+    sqlQuery: config.defaultQuery,
     showCustomQueryNamingDialog: false,
     queryExample: exampleQueryService.getExample(),
     cmOptions: {
