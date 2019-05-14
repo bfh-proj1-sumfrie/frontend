@@ -14,12 +14,8 @@
 import BackendService from "../services/backend-service";
 
 export default {
-  data: () => ({
-
-  }),
-  methods: {
-  },
-  created: function() {
-  }
+  data: () => ({}),
+  methods: {},
+  created: function() {}
 };
 </script>

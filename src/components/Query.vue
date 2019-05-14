@@ -167,7 +167,7 @@ import "codemirror/addon/hint/sql-hint";
 import "codemirror/addon/hint/anyword-hint";
 import QueryResultTable from "./QueryResultTable";
 export default {
-  components: {QueryResultTable, codemirror },
+  components: { QueryResultTable, codemirror },
   data: () => ({
     nameCustomQuery: "",
     sideBarActive: false,
@@ -318,7 +318,8 @@ export default {
   text-align: left;
 }
 
-.CodeMirror-scroll, .CodeMirror-hscrollbar {
+.CodeMirror-scroll,
+.CodeMirror-hscrollbar {
   z-index: 0;
 }
 
