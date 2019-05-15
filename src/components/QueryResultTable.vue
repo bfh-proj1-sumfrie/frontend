@@ -9,6 +9,11 @@
     </div>
     <div v-if="!queryExecuting && query !== ''">
       <!-- Warning notification if query has no entrys  -->
+      <div v-if="error !== ''">
+        <v-alert :value="true" type="error">
+          {{ error }}
+        </v-alert>
+      </div>
       <div v-if="result.length <= 0">
         <div class="lastQuery">
           <v-alert :value="true" type="warning">

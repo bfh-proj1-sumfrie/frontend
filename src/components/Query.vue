@@ -1,82 +1,12 @@
 <template>
   <div id="query-component">
-    <div v-if="error !== ''">
-      <v-alert :value="true" type="error">
-        {{ error }}
-      </v-alert>
-    </div>
     <v-layout text-xs-center wrap>
       <!-- Side bar  -->
-      <v-flex xs3 v-if="sideBarActive">
-        <v-navigation-drawer stateless value="true" id="exampleNavigator">
-          <v-list>
-            <!-- Title -->
-            <v-list-tile>
-              <v-list-tile-title @click="sideBarActive = false"
-                ><v-icon>fas fa-arrow-left</v-icon></v-list-tile-title
-              >
-              <v-btn
-                left
-                fab
-                small
-                color="transparent"
-                dark
-                v-on:click="showCustomQueryNamingDialog = true"
-                ><v-icon>fas fa-save</v-icon></v-btn
-              >
-            </v-list-tile>
-
-            <v-list-group
-              :prepend-icon="queryCategory.icon_name"
-              :value="false"
-              v-for="queryCategory in queryExample"
-              :key="queryCategory"
-            >
-              <template v-slot:activator>
-                <v-list-tile>
-                  <v-list-tile-title>{{
-                    queryCategory.main_title
-                  }}</v-list-tile-title>
-                </v-list-tile>
-              </template>
-              <v-list-tile
-                v-for="query in queryCategory.queries"
-                :key="query"
-                @click="loadExampleQuery(query)"
-                :disabled="!query.active"
-              >
-                <v-list-tile-title v-text="query.title"></v-list-tile-title>
-              </v-list-tile>
-            </v-list-group>
-            <v-list-group
-              v-if="userSavedQueries.length !== 0"
-              prepend-icon="fas fa-folder-open"
-              :value="true"
-            >
-              <template v-slot:activator>
-                <v-list-tile>
-                  <v-list-tile-title>Custom queries</v-list-tile-title>
-                </v-list-tile>
-              </template>
-              <v-list-tile
-                v-for="(value, index) in userSavedQueries"
-                :key="value"
-                id="sampleQueries"
-              >
-                <v-list-tile-title
-                  @click="loadExampleQuery(value)"
-                  v-text="value.title"
-                ></v-list-tile-title>
-                <v-list-tile-action>
-                  <v-icon right @click="deleteQuery(index)"
-                    >fas fa-trash-alt</v-icon
-                  >
-                </v-list-tile-action>
-              </v-list-tile>
-            </v-list-group>
-          </v-list>
-        </v-navigation-drawer>
-      </v-flex>
+      <Sidebar
+              v-on:saveCustomQuery="showCustomQueryNamingDialog = true"
+              v-on:loadCustomQuery="loadCustomQuery"
+      >
+      </Sidebar>
       <v-flex xs12>
         <!-- SQL query editor  -->
         <codemirror
@@ -100,19 +30,8 @@
         <QueryResultTable v-bind:query="queryToRun"></QueryResultTable>
       </v-flex>
     </v-layout>
-    <v-btn
-      absolute
-      dark
-      round
-      top
-      left
-      color="primary"
-      @click="sideBarActive = true"
-      v-if="!sideBarActive"
-      id="floatingButton"
-      ><v-icon right>fas fa-arrow-right</v-icon></v-btn
-    >
-    <!-- Popup to enter save name -->
+
+    <!-- Popup to enter save name for custom query -->
     <v-dialog v-model="showCustomQueryNamingDialog" max-width="290">
       <v-card>
         <v-card-title class="headline">Save</v-card-title>
@@ -156,7 +75,6 @@
 </template>
 
 <script>
-import exampleQueryService from "../services/example-query-service";
 import codemirror from "vue-codemirror/src/codemirror.vue";
 import "codemirror/addon/hint/show-hint.css";
 import "codemirror/mode/sql/sql";
@@ -168,18 +86,16 @@ import "codemirror/addon/hint/sql-hint";
 import "codemirror/addon/hint/anyword-hint";
 import QueryResultTable from "./QueryResultTable";
 import config from "../../config";
+import Sidebar from "./Sidebar";
+import CustomQueryService from "../services/custom-query-service";
 
 export default {
-  components: { QueryResultTable, codemirror },
+  components: { Sidebar, QueryResultTable, codemirror },
   data: () => ({
-    nameCustomQuery: "",
-    sideBarActive: false,
     queryToRun: "",
-    error: "",
-    text: "",
-    sqlQuery: config.defaultQuery,
     showCustomQueryNamingDialog: false,
-    queryExample: exampleQueryService.getExample(),
+    nameCustomQuery: "",
+    sqlQuery: config.defaultQuery,
     cmOptions: {
       // codemirror options
       tabSize: 4,
@@ -189,34 +105,9 @@ export default {
       CodeMirror: {
         "font-size": "20px"
       }
-    },
-    userSavedQueries: []
+    }
   }),
   methods: {
-    async loadExampleQuery(input) {
-      this.sqlQuery = input.query;
-    },
-    async saveQuery() {
-      if (this.nameCustomQuery === "") this.nameCustomQuery = "unnamed query";
-      this.userSavedQueries.push({
-        title: this.nameCustomQuery,
-        query: this.sqlQuery
-      });
-      localStorage.userSavedQueries = JSON.stringify(this.userSavedQueries);
-      this.showCustomQueryNamingDialog = false;
-      this.nameCustomQuery = "";
-    },
-    deleteQuery(index) {
-      this.userSavedQueries.splice(index, 1);
-      localStorage.userSavedQueries = JSON.stringify(this.userSavedQueries);
-    },
-    async readQuery(ev) {
-      const file = ev.target.files[0];
-      const reader = new FileReader();
-      reader.onload = e => (this.sqlQuery = e.target.result);
-      let l = reader.readAsText(file);
-    },
-
     onCmCodeChange(newCode) {
       this.sqlQuery = newCode;
     },
@@ -234,6 +125,23 @@ export default {
         s +
         "';";
       this.runQuery();
+    },
+    loadQuery(input) {
+      this.sqlQuery = input.query;
+    },
+    saveQuery () {
+      CustomQueryService.saveQuery(this.sqlQuery, this.nameCustomQuery);
+      this.showCustomQueryNamingDialog = false;
+      this.nameCustomQuery = '';
+    },
+    readQuery(ev) {
+      const file = ev.target.files[0];
+      const reader = new FileReader();
+      reader.onload = e => (this.sqlQuery = e.target.result);
+      let l = reader.readAsText(file);
+    },
+    loadCustomQuery(customQuery) {
+      this.sqlQuery = customQuery.query;
     }
   },
   created: function() {
@@ -244,11 +152,7 @@ export default {
   props: {
     searchString: String
   },
-  mounted() {
-    if (typeof localStorage !== "undefined" && localStorage.userSavedQueries) {
-      this.userSavedQueries = JSON.parse(localStorage.userSavedQueries);
-    }
-  }
+  mounted() {}
 };
 </script>
 
@@ -261,22 +165,6 @@ export default {
 .CodeMirror {
   text-align: left;
   font-size: 1.6rem;
-}
-#floatingButton {
-  position: absolute;
-  top: 15px;
-  left: -30px;
-  width: 20px;
-}
-#exampleNavigator {
-  position: absolute;
-  left: 0px;
-  top: 0px;
-  z-index: 1;
-}
-
-#sampleQueries:hover {
-  background-color: #515151;
 }
 
 .CodeMirror-hints {
