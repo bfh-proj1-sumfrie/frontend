@@ -54,7 +54,7 @@
             </v-list-tile>
           </v-list-group>
           <v-list-group
-            v-if="userSavedQueries.length !== 0"
+            v-if="$store.state.customUserQueries.length !== 0"
             prepend-icon="fas fa-folder-open"
             :value="true"
           >
@@ -64,7 +64,7 @@
               </v-list-tile>
             </template>
             <v-list-tile
-              v-for="(value, index) in getUserQueries"
+              v-for="(value, index) in $store.state.customUserQueries"
               :key="value.name"
               id="sampleQueries"
             >
@@ -73,7 +73,7 @@
                 v-text="value.title"
               ></v-list-tile-title>
               <v-list-tile-action>
-                <v-icon right @click="deleteQuery(index)">
+                <v-icon right @click="$store.dispatch('removeCustomUserQuery', index)">
                   fas fa-trash-alt
                 </v-icon>
               </v-list-tile-action>
@@ -87,7 +87,6 @@
 
 <script>
 import exampleQueryService from "../services/example-query-service";
-import CustomQueryService from "../services/custom-query-service";
 
 export default {
   data: () => ({
@@ -95,28 +94,14 @@ export default {
     showCustomQueryNamingDialog: false,
     queryExamples: exampleQueryService.getExample()
   }),
-  computed: {
-    getUserQueries: function(){
-      return CustomQueryService.getQueriesFromLocalStorage();
-    }
-  },
   methods: {
     saveACustomQuery() {
       // notify parents to store any current query
       this.$emit("saveCustomQuery");
       this.sideBarActive = false;
     },
-    deleteQuery(index) {
-      CustomQueryService.deleteQuery(index);
-      this.userSavedQueries = CustomQueryService.getQueriesFromLocalStorage();
-    },
     loadQuery(query) {
       this.$emit("loadCustomQuery", query);
-    }
-  },
-  mounted() {
-    if (typeof localStorage !== "undefined") {
-      this.userSavedQueries = CustomQueryService.getQueriesFromLocalStorage();
     }
   }
 };
