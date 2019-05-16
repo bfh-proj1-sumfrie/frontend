@@ -136,12 +136,6 @@ export default {
       this.showCustomQueryNamingDialog = false;
       this.nameCustomQuery = "";
     },
-    readQuery(ev) {
-      const file = ev.target.files[0];
-      const reader = new FileReader();
-      reader.onload = e => (this.sqlQuery = e.target.result);
-      let l = reader.readAsText(file);
-    },
     loadCustomQuery(customQuery) {
       this.sqlQuery = customQuery.query;
     }
