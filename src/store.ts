@@ -10,7 +10,6 @@ const state = {
 
 const mutations = {
   addCustomUserQuery(state, payload) {
-    console.log("store", payload);
     state.customUserQueries = CustomQueryService.saveQuery(
       payload.queryString,
       payload.title
