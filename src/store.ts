@@ -1,31 +1,54 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import CustomQueryService from "./services/custom-query-service";
+import {
+  CustomQueryService,
+  CustomQueryIface
+} from "./services/custom-query-service";
 
 Vue.use(Vuex);
+
+interface stateIface {
+  customUserQueries: CustomQueryIface[];
+}
 
 const state = {
   customUserQueries: CustomQueryService.getQueriesFromLocalStorage()
 };
 
 const mutations = {
-  addCustomUserQuery(state, payload) {
+  addCustomUserQuery(
+    state: stateIface,
+    payload: { queryString: string; title: string }
+  ) {
     state.customUserQueries = CustomQueryService.saveQuery(
       payload.queryString,
       payload.title
     );
   },
-  removeCustomUserQuery(state, payload) {
+  removeCustomUserQuery(state: stateIface, payload: { index: number }) {
     state.customUserQueries = CustomQueryService.deleteQuery(payload.index);
   }
 };
 
+interface CommitIface {
+  commit(
+    mutation: string,
+    payload: CustomQueryIface[] | CustomQueryIface | KeyIface
+  ): void;
+}
+
+interface KeyIface {
+  index: number;
+}
+
 const actions = {
-  setCustomUserQueries: ({ commit }, payload) =>
-    commit("setCustomUserQueries", payload),
-  addCustomUserQuery: ({ commit }, payload) =>
+  setCustomUserQueries: (
+    { commit }: CommitIface,
+    payload: CustomQueryIface[]
+  ) => commit("setCustomUserQueries", payload),
+  addCustomUserQuery: ({ commit }: CommitIface, payload: CustomQueryIface) =>
     commit("addCustomUserQuery", payload),
-  removeCustomUserQuery: ({ commit }, payload) =>
+  removeCustomUserQuery: ({ commit }: CommitIface, payload: KeyIface) =>
     commit("removeCustomUserQuery", payload)
 };
 

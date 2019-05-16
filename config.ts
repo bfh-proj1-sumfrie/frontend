@@ -5,5 +5,5 @@ if (!api) {
 
 export default {
   api: api,
-  defaultQuery: "select * from block"
+  defaultQuery: "select * from block;"
 };

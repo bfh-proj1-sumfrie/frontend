@@ -14,7 +14,7 @@
           {{ error }}
         </v-alert>
       </div>
-      <div v-if="result.length <= 0">
+      <div v-if="result.length <= 0 && !error">
         <div class="lastQuery">
           <v-alert :value="true" type="warning">
             <h3>No Results for query:</h3>
@@ -188,7 +188,6 @@ export default {
       this.showDetailView = true;
     },
     saveAsCsv(data) {
-      console.log(this.query);
       FileService.generateCSV(data);
     },
     async checkPaginationButton() {
@@ -213,6 +212,7 @@ export default {
     async runQuery(query) {
       let rawResult;
       this.queryExecuting = true;
+      this.result = [];
       try {
         rawResult = await BackendService.runQuery(
           query,
