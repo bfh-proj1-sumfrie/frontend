@@ -28,6 +28,9 @@
         <v-btn flat color="white" to="/schema">
           <v-icon>fa fa-database</v-icon>
         </v-btn>
+        <v-btn flat color="white" to="/explorer">
+          <v-icon>fa fa-window-maximize</v-icon>
+        </v-btn>
         <v-btn flat color="white" to="/about">
           <v-icon>fa fa-info</v-icon>
         </v-btn>

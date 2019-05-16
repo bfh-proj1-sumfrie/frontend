@@ -84,7 +84,7 @@ export default class exampleQueryService {
             active: false,
             title: "Generous Transactions(slow)",
             query: "SELECT * FROM transaction ORDER BY FeeBTC DESC"
-          },
+          }
         ]
       },
       {
@@ -94,33 +94,39 @@ export default class exampleQueryService {
           {
             active: false,
             title: "View Script",
-            query: "SELECT\n  O.[Name] Name,\n SI.[DataLE] Data,\n  TXT.[en] Txt\nFROM\n ScriptInstruction SI INNER JOIN\n  OpCode O ON SI.OpCode = O.ID INNER JOIN\n  [Text] TXT ON O.[Description] = TXT.Name\nWHERE\n  SI.ScriptID = 243021301 -- Script ID (database)"
+            query:
+              "SELECT\n  O.[Name] Name,\n SI.[DataLE] Data,\n  TXT.[en] Txt\nFROM\n ScriptInstruction SI INNER JOIN\n  OpCode O ON SI.OpCode = O.ID INNER JOIN\n  [Text] TXT ON O.[Description] = TXT.Name\nWHERE\n  SI.ScriptID = 243021301 -- Script ID (database)"
           },
           {
             active: false,
             title: "View Input Script (by TXID)",
-            query: "SELECT\n  O.[Name] Name,\n SI.DataLE\n  Data,\n  TXT.en Txt\nFROM\n transaction T INNER JOIN\n TransactionInput TXI ON T.ID = TXI.TransactionID INNER JOIN\n  Script S ON S.ID = TXI.ScriptID INNER JOIN\n ScriptInstruction SI ON S.ID = SI.ScriptID INNER JOIN\n  OpCode O ON SI.OpCode = O.ID INNER JOIN\n  [Text] TXT ON O.[Description] = TXT.Name\nWHERE\n  T.TXID = 0x67F222EF921D8021EB740A87AE0A52637568E96D7FCC2DA78EE6FB167B08FCF9 AND -- TXID (prefix with 0x)\n TXI.[Index] = 0     -- Input index"
+            query:
+              "SELECT\n  O.[Name] Name,\n SI.DataLE\n  Data,\n  TXT.en Txt\nFROM\n transaction T INNER JOIN\n TransactionInput TXI ON T.ID = TXI.TransactionID INNER JOIN\n  Script S ON S.ID = TXI.ScriptID INNER JOIN\n ScriptInstruction SI ON S.ID = SI.ScriptID INNER JOIN\n  OpCode O ON SI.OpCode = O.ID INNER JOIN\n  [Text] TXT ON O.[Description] = TXT.Name\nWHERE\n  T.TXID = 0x67F222EF921D8021EB740A87AE0A52637568E96D7FCC2DA78EE6FB167B08FCF9 AND -- TXID (prefix with 0x)\n TXI.[Index] = 0     -- Input index"
           },
           {
             active: false,
             title: "View Input Script (by height)",
-            query: "SELECT\n  O.[Name] Name,\n SI.[DataLE] Data,\n  TXT.[en] Txt\nFROM\n [Transaction] T INNER JOIN\n TransactionInput TXI ON T.ID = TXI.TransactionID INNER JOIN\n  Script S ON S.ID = TXI.ScriptID INNER JOIN\n ScriptInstruction SI ON S.ID = SI.ScriptID INNER JOIN\n  OpCode O ON SI.OpCode = O.ID INNER JOIN\n  [Text] TXT ON O.[Description] = TXT.Name INNER JOIN\n  Block B ON T.BlockID = B.ID"
+            query:
+              "SELECT\n  O.[Name] Name,\n SI.[DataLE] Data,\n  TXT.[en] Txt\nFROM\n [Transaction] T INNER JOIN\n TransactionInput TXI ON T.ID = TXI.TransactionID INNER JOIN\n  Script S ON S.ID = TXI.ScriptID INNER JOIN\n ScriptInstruction SI ON S.ID = SI.ScriptID INNER JOIN\n  OpCode O ON SI.OpCode = O.ID INNER JOIN\n  [Text] TXT ON O.[Description] = TXT.Name INNER JOIN\n  Block B ON T.BlockID = B.ID"
           },
           {
             active: false,
             title: "View Output Script (by transaction id)",
-            query: "SELECT\n  O.[Name] Name,\n SI.[DataLE] Data,\n  TXT.[en] Txt\nFROM\n [Transaction] T INNER JOIN\n TransactionOutput TXO ON T.ID = TXO.TransactionID INNER JOIN\n Script S ON S.ID = TXO.ScriptID INNER JOIN\n ScriptInstruction SI ON S.ID = SI.ScriptID INNER JOIN\n  OpCode O ON SI.OpCode = O.ID INNER JOIN\n  [Text] TXT ON O.[Description] = TXT.Name\nWHERE\n  T.ID = 135510789 AND -- Transaction ID (database)\n  TXO.[Index] = 0     -- Output index"
+            query:
+              "SELECT\n  O.[Name] Name,\n SI.[DataLE] Data,\n  TXT.[en] Txt\nFROM\n [Transaction] T INNER JOIN\n TransactionOutput TXO ON T.ID = TXO.TransactionID INNER JOIN\n Script S ON S.ID = TXO.ScriptID INNER JOIN\n ScriptInstruction SI ON S.ID = SI.ScriptID INNER JOIN\n  OpCode O ON SI.OpCode = O.ID INNER JOIN\n  [Text] TXT ON O.[Description] = TXT.Name\nWHERE\n  T.ID = 135510789 AND -- Transaction ID (database)\n  TXO.[Index] = 0     -- Output index"
           },
           {
             active: false,
             title: "View Output Script (by TXID)",
-            query: "SELECT\n  O.[Name] Name,\n SI.[DataLE]\n  Data,\n  TXT.[en] Txt\nFROM\n [Transaction] T INNER JOIN\n TransactionOutput TXO ON T.ID = TXO.TransactionID INNER JOIN\n Script S ON S.ID = TXO.ScriptID INNER JOIN\n ScriptInstruction SI ON S.ID = SI.ScriptID INNER JOIN\n  OpCode O ON SI.OpCode = O.ID INNER JOIN\n  [Text] TXT ON O.[Description] = TXT.Name\nWHERE\n  T.TXID = 0x67F222EF921D8021EB740A87AE0A52637568E96D7FCC2DA78EE6FB167B08FCF9 AND -- TXID (prefix with 0x)\n TXO.[Index] = 0     -- Output index"
+            query:
+              "SELECT\n  O.[Name] Name,\n SI.[DataLE]\n  Data,\n  TXT.[en] Txt\nFROM\n [Transaction] T INNER JOIN\n TransactionOutput TXO ON T.ID = TXO.TransactionID INNER JOIN\n Script S ON S.ID = TXO.ScriptID INNER JOIN\n ScriptInstruction SI ON S.ID = SI.ScriptID INNER JOIN\n  OpCode O ON SI.OpCode = O.ID INNER JOIN\n  [Text] TXT ON O.[Description] = TXT.Name\nWHERE\n  T.TXID = 0x67F222EF921D8021EB740A87AE0A52637568E96D7FCC2DA78EE6FB167B08FCF9 AND -- TXID (prefix with 0x)\n TXO.[Index] = 0     -- Output index"
           },
           {
             active: false,
             title: "View Output Script (by transaction index)",
-            query: "SELECT\n  O.[Name] Name,\n SI.[DataLE] Data,\n  TXT.[en] Txt\nFROM\n [Transaction] T INNER JOIN\n TransactionOutput TXO ON T.ID = TXO.TransactionID INNER JOIN\n Script S ON S.ID = TXO.ScriptID INNER JOIN\n ScriptInstruction SI ON S.ID = SI.ScriptID INNER JOIN\n  OpCode O ON SI.OpCode = O.ID INNER JOIN\n  [Text] TXT ON O.[Description] = TXT.Name INNER JOIN\n  Block B ON T.BlockID = B.ID\nWHERE\n  B.Height = 416079 AND   -- Block height\n  T.[Index] = 0 AND       -- Transaction index\n TXO.[Index] = 0         -- Output index"
-          },
+            query:
+              "SELECT\n  O.[Name] Name,\n SI.[DataLE] Data,\n  TXT.[en] Txt\nFROM\n [Transaction] T INNER JOIN\n TransactionOutput TXO ON T.ID = TXO.TransactionID INNER JOIN\n Script S ON S.ID = TXO.ScriptID INNER JOIN\n ScriptInstruction SI ON S.ID = SI.ScriptID INNER JOIN\n  OpCode O ON SI.OpCode = O.ID INNER JOIN\n  [Text] TXT ON O.[Description] = TXT.Name INNER JOIN\n  Block B ON T.BlockID = B.ID\nWHERE\n  B.Height = 416079 AND   -- Block height\n  T.[Index] = 0 AND       -- Transaction index\n TXO.[Index] = 0         -- Output index"
+          }
         ]
       },
       {
@@ -130,13 +136,15 @@ export default class exampleQueryService {
           {
             active: false,
             title: "Deposits",
-            query: "SELECT\n  B.TimeStampUtc AS [DateTime],\n  TXO.Value / 100000000.0 AS AmountBTC,\n  B.ID AS BlockID,\n B.Height AS BlockHeight,\n TX.ID AS TransactionID,\n  TX.TXID AS TransactionTXID,\n  TXO.[Index] AS OutputIndex,\n  TXO.ID AS OutputID \nFROM\n TransactionOutput TXO INNER JOIN\n [Transaction] TX ON TXO.TransactionID = TX.ID INNER JOIN\n Block B ON TX.BlockID = B.ID \nWHERE\n  TXO.ToAddress = '1ByuFFiYvgKFkAFuY1bxHTj8tqSsCBaF2B' AND   -- Address deposited into\n B.BranchID = 1\n"
+            query:
+              "SELECT\n  B.TimeStampUtc AS [DateTime],\n  TXO.Value / 100000000.0 AS AmountBTC,\n  B.ID AS BlockID,\n B.Height AS BlockHeight,\n TX.ID AS TransactionID,\n  TX.TXID AS TransactionTXID,\n  TXO.[Index] AS OutputIndex,\n  TXO.ID AS OutputID \nFROM\n TransactionOutput TXO INNER JOIN\n [Transaction] TX ON TXO.TransactionID = TX.ID INNER JOIN\n Block B ON TX.BlockID = B.ID \nWHERE\n  TXO.ToAddress = '1ByuFFiYvgKFkAFuY1bxHTj8tqSsCBaF2B' AND   -- Address deposited into\n B.BranchID = 1\n"
           },
           {
             active: false,
             title: "Withdrawals",
-            query: "SELECT\n  B.TimeStampUtc AS [DateTime],\n  TXI.Value / 100000000.0 AS AmountBTC,\n  B.ID AS BlockID,\n B.Height AS BlockHeight,\n TX.ID AS TransactionID,\n  TX.TXID AS TransactionTXID,\n  TXI.[Index] AS InputIndex \nFROM\n TransactionInput TXI INNER JOIN\n  TransactionOutput TXO ON TXI.TransactionOutputID = TXO.ID INNER JOIN\n [Transaction] TX ON TXI.TransactionID = TX.ID INNER JOIN\n Block B ON TX.BlockID = B.ID \nWHERE\n  TXO.ToAddress = '1ByuFFiYvgKFkAFuY1bxHTj8tqSsCBaF2B' AND -- Address withdrawn from\n B.BranchID = 1 "
-          },
+            query:
+              "SELECT\n  B.TimeStampUtc AS [DateTime],\n  TXI.Value / 100000000.0 AS AmountBTC,\n  B.ID AS BlockID,\n B.Height AS BlockHeight,\n TX.ID AS TransactionID,\n  TX.TXID AS TransactionTXID,\n  TXI.[Index] AS InputIndex \nFROM\n TransactionInput TXI INNER JOIN\n  TransactionOutput TXO ON TXI.TransactionOutputID = TXO.ID INNER JOIN\n [Transaction] TX ON TXI.TransactionID = TX.ID INNER JOIN\n Block B ON TX.BlockID = B.ID \nWHERE\n  TXO.ToAddress = '1ByuFFiYvgKFkAFuY1bxHTj8tqSsCBaF2B' AND -- Address withdrawn from\n B.BranchID = 1 "
+          }
         ]
       }
     ];
