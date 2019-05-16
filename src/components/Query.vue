@@ -3,8 +3,8 @@
     <v-layout text-xs-center wrap>
       <!-- Side bar  -->
       <Sidebar
-              v-on:saveCustomQuery="showCustomQueryNamingDialog = true"
-              v-on:loadCustomQuery="loadCustomQuery"
+        v-on:saveCustomQuery="showCustomQueryNamingDialog = true"
+        v-on:loadCustomQuery="loadCustomQuery"
       >
       </Sidebar>
       <v-flex xs12>
@@ -87,7 +87,6 @@ import "codemirror/addon/hint/anyword-hint";
 import QueryResultTable from "./QueryResultTable";
 import config from "../../config";
 import Sidebar from "./Sidebar";
-import CustomQueryService from "../services/custom-query-service";
 
 export default {
   components: { Sidebar, QueryResultTable, codemirror },
@@ -129,10 +128,13 @@ export default {
     loadQuery(input) {
       this.sqlQuery = input.query;
     },
-    saveQuery () {
-      CustomQueryService.saveQuery(this.sqlQuery, this.nameCustomQuery);
+    saveQuery() {
+      this.$store.dispatch("addCustomUserQuery", {
+        queryString: this.sqlQuery,
+        title: this.nameCustomQuery
+      });
       this.showCustomQueryNamingDialog = false;
-      this.nameCustomQuery = '';
+      this.nameCustomQuery = "";
     },
     readQuery(ev) {
       const file = ev.target.files[0];

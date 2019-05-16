@@ -36,6 +36,7 @@
           <v-list-group
             :prepend-icon="queryCategory.icon_name"
             :value="false"
+            :key="queryCategory.main_title"
             v-for="queryCategory in queryExamples"
           >
             <template v-slot:activator>
@@ -47,6 +48,7 @@
             </template>
             <v-list-tile
               v-for="query in queryCategory.queries"
+              :key="query.title"
               @click="loadQuery(query)"
               :disabled="!query.active"
             >
@@ -73,7 +75,12 @@
                 v-text="value.title"
               ></v-list-tile-title>
               <v-list-tile-action>
-                <v-icon right @click="$store.dispatch('removeCustomUserQuery', index)">
+                <v-icon
+                  right
+                  @click="
+                    $store.dispatch('removeCustomUserQuery', { index: index })
+                  "
+                >
                   fas fa-trash-alt
                 </v-icon>
               </v-list-tile-action>
@@ -98,9 +105,9 @@ export default {
     saveACustomQuery() {
       // notify parents to store any current query
       this.$emit("saveCustomQuery");
-      this.sideBarActive = false;
     },
     loadQuery(query) {
+      // notify parents to load any current query
       this.$emit("loadCustomQuery", query);
     }
   }

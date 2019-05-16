@@ -8,13 +8,13 @@ export default class CustomQueryService {
       query: query
     });
     CustomQueryService.saveQueriesToLocalStorage(userQueries);
-    // this.showCustomQueryNamingDialog = false;
-    // this.userQueryKey = "";
+    return CustomQueryService.getQueriesFromLocalStorage();
   }
   public static deleteQuery(index: number) {
     let queries = CustomQueryService.getQueriesFromLocalStorage();
     queries.splice(index, 1);
     CustomQueryService.saveQueriesToLocalStorage(queries);
+    return CustomQueryService.getQueriesFromLocalStorage();
   }
   public static getQueriesFromLocalStorage(): object[] {
     return JSON.parse(

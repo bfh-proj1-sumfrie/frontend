@@ -9,17 +9,25 @@ const state = {
 };
 
 const mutations = {
-  addCustomUserQuery (state, newQuery) {
-    state.customUserQueries.push(newQuery)
+  addCustomUserQuery(state, payload) {
+    console.log("store", payload);
+    state.customUserQueries = CustomQueryService.saveQuery(
+      payload.queryString,
+      payload.title
+    );
   },
-  removeCustomUserQuery (state, index) {
-    state.customUserQueries.splice(index, 1);
+  removeCustomUserQuery(state, payload) {
+    state.customUserQueries = CustomQueryService.deleteQuery(payload.index);
   }
 };
 
 const actions = {
-  addCustomUserQuery: ({ commit }) => commit('addCustomUserQuery'),
-  removeCustomUserQuery: ({ commit }) => commit('removeCustomUserQuery'),
+  setCustomUserQueries: ({ commit }, payload) =>
+    commit("setCustomUserQueries", payload),
+  addCustomUserQuery: ({ commit }, payload) =>
+    commit("addCustomUserQuery", payload),
+  removeCustomUserQuery: ({ commit }, payload) =>
+    commit("removeCustomUserQuery", payload)
 };
 
 export default new Vuex.Store({
