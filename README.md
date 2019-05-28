@@ -34,11 +34,6 @@ yarn run test
 yarn run lint
 ```
 
-### Run your end-to-end tests
-```
-yarn run test:e2e
-```
-
 ### Run your unit tests
 ```
 yarn run test:unit
