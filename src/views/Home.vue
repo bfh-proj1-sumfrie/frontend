@@ -1,12 +1,17 @@
 <template>
-  <div class="home"></div>
+  <div class="home">
+    <QueryComponent />
+  </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import QueryComponent from "../components/Query.vue";
 
 @Component({
-  components: {}
+  components: {
+    QueryComponent
+  }
 })
 export default class Home extends Vue {}
 </script>
