@@ -52,10 +52,16 @@ export class CustomQueryService {
     return CustomQueryService.getQueriesFromLocalStorage();
   }
   public static getQueriesFromLocalStorage(): CustomQueryIface[] {
-    return JSON.parse(
-      String(localStorage.getItem(CustomQueryService.STORAGE_KEY))
-    );
+
+    // only load if key in local storage exists
+    if (localStorage.getItem(CustomQueryService.STORAGE_KEY)) {
+      return JSON.parse(
+          String(localStorage.getItem(CustomQueryService.STORAGE_KEY))
+      );
+    }
+    return []
   }
+
   private static saveQueriesToLocalStorage(queries: object[]) {
     localStorage.setItem(
       CustomQueryService.STORAGE_KEY,
