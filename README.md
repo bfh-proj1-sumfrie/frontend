@@ -11,7 +11,7 @@ yarn install
 
 Define the following env variables: 
 
-`VUE_APP_API_URL` the url where your api is hosted (without slash at the ebd).
+`VUE_APP_API_URL` the url where your api is hosted (without slash at the end).
 
 
 ### Compiles and hot-reloads for development
