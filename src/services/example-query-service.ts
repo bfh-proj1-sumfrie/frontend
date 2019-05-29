@@ -34,7 +34,7 @@ export default class exampleQueryService {
     return [
       {
         main_title: "Blocks",
-        icon_name: "home",
+        icon_name: "fas fa-cube",
         queries: [
           {
             title: "All Blocks",
@@ -71,7 +71,7 @@ export default class exampleQueryService {
       },
       {
         main_title: "Transactions",
-        icon_name: "home",
+        icon_name: "fas fa-list",
         queries: [
           {
             active: true,
@@ -116,7 +116,7 @@ export default class exampleQueryService {
       },
       {
         main_title: "Scripts",
-        icon_name: "home",
+        icon_name: "fas fa-scroll",
         queries: [
           {
             active: false,
@@ -158,7 +158,7 @@ export default class exampleQueryService {
       },
       {
         main_title: "Addresses",
-        icon_name: "home",
+        icon_name: "fas fa-map-marked-alt",
         queries: [
           {
             active: false,
