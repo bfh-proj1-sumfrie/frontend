@@ -41,7 +41,6 @@ Code is partly adapted from:
       <v-icon right>fas fa-arrow-right</v-icon>
     </v-btn>
     <v-flex xs3 v-if="sideBarActive">
-      <v-icon right>fas fa-arrow-right</v-icon>
       <v-navigation-drawer stateless value="true" id="sidebar-navigator">
         <v-list>
           <!-- Title -->
@@ -147,15 +146,16 @@ export default {
   top: 15px;
   left: -30px;
   width: 20px;
+  z-index: 1;
 }
 #sidebar-navigator {
   position: absolute;
   left: 0px;
   top: 0px;
-  z-index: 1;
 }
 
 #sampleQueries:hover {
   background-color: #515151;
 }
 </style>
+
