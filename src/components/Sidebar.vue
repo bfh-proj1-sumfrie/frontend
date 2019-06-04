@@ -1,3 +1,30 @@
+<!--
+
+Author: Elias Summermatter & Jan Friedli
+Date: 28.05.2019
+
+Licence:
+This file is part of BloSQL.
+
+BloSQL is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+BloSQL is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with BloSQL.  If not, see <http://www.gnu.org/licenses/>.
+
+External Content:
+Code is partly adapted from:
+ - https://vuetifyjs.com/en/components/api-explorer
+
+-->
+
 <template>
   <div id="sidebar-component">
     <v-btn
@@ -14,7 +41,6 @@
       <v-icon right>fas fa-arrow-right</v-icon>
     </v-btn>
     <v-flex xs3 v-if="sideBarActive">
-      <v-icon right>fas fa-arrow-right</v-icon>
       <v-navigation-drawer stateless value="true" id="sidebar-navigator">
         <v-list>
           <!-- Title -->
@@ -120,12 +146,12 @@ export default {
   top: 15px;
   left: -30px;
   width: 20px;
+  z-index: 1;
 }
 #sidebar-navigator {
   position: absolute;
   left: 0px;
   top: 0px;
-  z-index: 1;
 }
 
 #sampleQueries:hover {
