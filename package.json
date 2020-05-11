@@ -27,7 +27,7 @@
     "vue-property-decorator": "^8.1.0",
     "vue-router": "^3.0.1",
     "vuetify": "^1.5.12",
-    "vuex": "^3.1.1"
+    "vuex": "^3.4.0"
   },
   "devDependencies": {
     "@fortawesome/fontawesome-free": "^5.8.1",
